@@ -1,25 +1,90 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="container">
+      <router-view></router-view>
     </div>
-    <router-view/>
+    <div class="footer">
+      <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler"></cube-tab-bar>
+    </div>
   </div>
 </template>
-<style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
 
-#nav
-  padding 30px
-  a
-    font-weight bold
-    color #2c3e50
-    &.router-link-exact-active
-      color #42b983
+<script>
+export default {
+  data() {
+    return {
+      selectedLabelDefault: '/',
+      tabs: [
+        {
+          icon: 'iconfont icon-shouye1',
+          label: '首页',
+          value: '/', // value选中的值
+        },
+        {
+          label: '分类',
+          value: '/category',
+          icon: 'iconfont icon-fenlei',
+        },
+        {
+          label: '购物车',
+          value: '/cart',
+          icon: 'iconfont icon-gouwuche2',
+        },
+        {
+          label: '我的',
+          value: '/profile',
+          icon: 'iconfont icon-denglu-copy',
+        },
+      ],
+    };
+  },
+  watch: {
+    // 监控路由属性的变化
+    $route: {
+      handler(to, from) {
+        this.selectedLabelDefault = to.path;
+      },
+      immediate: true,
+    },
+  },
+  methods: {
+    changeHandler(value) {
+      // if you clicked different tab, this methods can be emitted
+      this.$router.push(value);
+    },
+  },
+};
+</script>
+
+<style lang="stylus">
+html, body, #app {
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  overflow: scroll;
+}
+
+.footer {
+  background: #f2f2f2;
+}
+
+.cube-tab {
+  i {
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: 10px;
+  }
+}
+
+.cube-tab_active {
+  color: #ff8198;
+}
 </style>

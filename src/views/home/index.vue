@@ -1,25 +1,31 @@
 <template>
   <div class="home">
-    <home-nav />
-    <div class="slide">
-      <cube-slide ref="slide" :data="banner">
-        <cube-slide-item v-for="(item, index) in banner" :key="index">
-          <a :href="item.link">
-            <img :src="item.image" />
-          </a>
-        </cube-slide-item>
-      </cube-slide>
-    </div>
-    <home-recommend :recommends="recommend" />
+    <scroll ref="scroll">
+      <div class="slide">
+        <cube-slide ref="slide" :data="banner">
+          <cube-slide-item v-for="(item, index) in banner" :key="index">
+            <a :href="item.link">
+              <img :src="item.image" />
+            </a>
+          </cube-slide-item>
+        </cube-slide>
+      </div>
+      <home-recommend :recommends="recommend" />
+      <tab-control class="tab-control" :titles="['流行','新款','热卖']" @itemClick="itemClick" />
+      <goods-list :goodsList="goods[currentType].list"></goods-list>
+    </scroll>
+    <back-top @click.native="backClick"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HomeNav from "@/views/home/HomeNav.vue";
 
+import TabControl from "@/components/TabControl";
 import HomeRecommend from "@/views/home/HomeRecommend.vue";
-
+import GoodsList from "@/components/GoodsList";
+import Scroll from "@/components/Scroll";
+import BackTop from "@/components/BackTop";
 
 import { getHomeMultidata, getHomeData } from "@/network/home.js";
 
@@ -29,24 +35,54 @@ export default {
     return {
       banner: [],
       recommend: [],
+      goods: {
+        pop: { page: 10, list: [] },
+        new: { page: 10, list: [] },
+        sell: { page: 10, list: [] }
+      },
+      currentType: "pop"
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0)
+    },
 
+    itemClick(index) {
+      index === 0
+        ? (this.currentType = "pop")
+        : index === 1
+        ? (this.currentType = "new")
+        : (this.currentType = "sell");
+    },
+
+    getHomeDataList(type) {
+      const page = this.goods[type].page + 1;
+      getHomeData(type, page).then(res => {
+        console.log(res);
+        this.goods[type].list.push(...res.data.list);
+        this.goods[type].page += 1;
+      });
+    }
   },
   created() {
     getHomeMultidata().then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       this.banner = res.data.banner.list;
       this.recommend = res.data.recommend.list;
     });
+
+    this.getHomeDataList("pop", 0);
+    this.getHomeDataList("new", 0);
+    this.getHomeDataList("sell", 0);
   },
   components: {
-    HomeNav,
     HomeRecommend,
+    TabControl,
+    GoodsList,
+    Scroll,
+    BackTop
   }
 };
 </script>
@@ -69,5 +105,9 @@ img {
 
 .content {
   height: calc(100vh - 55px);
+}
+
+.wrapper {
+  height: calc(100vh - 99px);
 }
 </style>

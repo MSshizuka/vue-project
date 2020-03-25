@@ -28,6 +28,7 @@ export default {
   font-size: 14px;
   padding-bottom: 30px;
   border-bottom: 10px solid #eee;
+  background-color: #fff;
 }
 
 .recommend-item {

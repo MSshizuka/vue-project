@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="header">
+      <home-nav />
+    </div>
     <div class="container">
       <router-view></router-view>
     </div>
@@ -10,32 +13,33 @@
 </template>
 
 <script>
+import HomeNav from "@/views/home/HomeNav.vue";
 export default {
   data() {
     return {
-      selectedLabelDefault: '/',
+      selectedLabelDefault: "/",
       tabs: [
         {
-          icon: 'iconfont icon-shouye1',
-          label: '首页',
-          value: '/', // value选中的值
+          icon: "iconfont icon-shouye1",
+          label: "首页",
+          value: "/" // value选中的值
         },
         {
-          label: '分类',
-          value: '/category',
-          icon: 'iconfont icon-fenlei',
+          label: "分类",
+          value: "/category",
+          icon: "iconfont icon-fenlei"
         },
         {
-          label: '购物车',
-          value: '/cart',
-          icon: 'iconfont icon-gouwuche2',
+          label: "购物车",
+          value: "/cart",
+          icon: "iconfont icon-gouwuche2"
         },
         {
-          label: '我的',
-          value: '/profile',
-          icon: 'iconfont icon-denglu-copy',
-        },
-      ],
+          label: "我的",
+          value: "/profile",
+          icon: "iconfont icon-denglu-copy"
+        }
+      ]
     };
   },
   watch: {
@@ -44,15 +48,18 @@ export default {
       handler(to, from) {
         this.selectedLabelDefault = to.path;
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     changeHandler(value) {
       // if you clicked different tab, this methods can be emitted
       this.$router.push(value);
-    },
+    }
   },
+  components: {
+    HomeNav
+  }
 };
 </script>
 
@@ -70,6 +77,7 @@ html, body, #app {
 .container {
   flex: 1;
   overflow: scroll;
+  background-color #fff
 }
 
 .footer {

@@ -4,7 +4,7 @@ import { Toast } from 'cube-ui';
 class AjaxRequest {
   constructor() {
     this.baseURL = 'http://123.207.32.32:8000/api/wh';
-    this.timeout = 5000;
+    // this.timeout = 5000;
     this.toast = Toast.$create({
       txt: 'loading...',
       time: 0,

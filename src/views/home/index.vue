@@ -3,9 +3,7 @@
     <home-nav />
     <div class="slide">
       <cube-slide ref="slide" :data="banner">
-        <cube-slide-item
-          v-for="(item, index) in banner"
-          :key="index">
+        <cube-slide-item v-for="(item, index) in banner" :key="index">
           <a :href="item.link">
             <img :src="item.image" />
           </a>
@@ -18,23 +16,29 @@
 
 <script>
 // @ is an alias to /src
-import HomeNav from '@/views/home/HomeNav.vue';
-import HomeRecommend from '@/views/home/HomeRecommend.vue';
+import HomeNav from "@/views/home/HomeNav.vue";
 
-import { getHomeMultidata } from '@/network/home.js';
+import HomeRecommend from "@/views/home/HomeRecommend.vue";
+
+
+import { getHomeMultidata, getHomeData } from "@/network/home.js";
 
 export default {
-  name: 'home',
+  name: "home",
   data() {
     return {
       banner: [],
       recommend: [],
     };
   },
-  computed: {},
-  methods: {},
+  computed: {
+
+  },
+  methods: {
+
+  },
   created() {
-    getHomeMultidata().then((res) => {
+    getHomeMultidata().then(res => {
       console.log(res.data);
       this.banner = res.data.banner.list;
       this.recommend = res.data.recommend.list;
@@ -43,11 +47,15 @@ export default {
   components: {
     HomeNav,
     HomeRecommend,
-  },
+  }
 };
 </script>
 
 <style lang="stylus" scoped>
+.class {
+  height: 100vh;
+}
+
 .slide {
   width: 100%;
   height: 195px;
@@ -56,5 +64,10 @@ export default {
 img {
   width: 100%;
   max-width: 100%;
+  max-height: 100%;
+}
+
+.content {
+  height: calc(100vh - 55px);
 }
 </style>

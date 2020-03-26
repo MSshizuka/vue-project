@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <scroll ref="scroll">
+    <home-nav />
+    <scroll ref="scroll" @scroll="scroll" :probe-type="2" :pullUpLoad="true" @pullUpLoad="loadMore">
       <div class="slide">
         <cube-slide ref="slide" :data="banner">
           <cube-slide-item v-for="(item, index) in banner" :key="index">
@@ -11,23 +12,30 @@
         </cube-slide>
       </div>
       <home-recommend :recommends="recommend" />
-      <tab-control class="tab-control" :titles="['流行','新款','热卖']" @itemClick="itemClick" />
+      <tab-control
+        class="tab-control"
+        :titles="['流行','新款','热卖']"
+        @itemClick="itemClick"
+        ref="tabControl"
+      />
       <goods-list :goodsList="goods[currentType].list"></goods-list>
     </scroll>
-    <back-top @click.native="backClick"/>
+    <back-top @click.native="backClick" v-if="isShowBackTop" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import HomeNav from "@/views/home/HomeNav.vue";
+import HomeRecommend from "@/views/home/HomeRecommend.vue";
 
 import TabControl from "@/components/TabControl";
-import HomeRecommend from "@/views/home/HomeRecommend.vue";
 import GoodsList from "@/components/GoodsList";
 import Scroll from "@/components/Scroll";
 import BackTop from "@/components/BackTop";
 
 import { getHomeMultidata, getHomeData } from "@/network/home.js";
+import debounce from "@/utils/debounce.js";
 
 export default {
   name: "home",
@@ -36,20 +44,32 @@ export default {
       banner: [],
       recommend: [],
       goods: {
-        pop: { page: 10, list: [] },
-        new: { page: 10, list: [] },
-        sell: { page: 10, list: [] }
+        pop: { page: 0, list: [] },
+        new: { page: 0, list: [] },
+        sell: { page: 0, list: [] }
       },
-      currentType: "pop"
+      currentType: "pop",
+      isShowBackTop: false,
+      scrollY: 0
     };
   },
   computed: {},
   methods: {
+    loadMore() {
+      // console.log('加载更多');
+      this.getHomeDataList(this.currentType);
+    },
+    scroll(position) {
+      Math.abs(position.y) > 1400
+        ? (this.isShowBackTop = true)
+        : (this.isShowBackTop = false);
+    },
     backClick() {
-      this.$refs.scroll.scrollTo(0, 0)
+      this.$refs.scroll.scrollTo(0, 0);
     },
 
     itemClick(index) {
+      // console.log(index);
       index === 0
         ? (this.currentType = "pop")
         : index === 1
@@ -57,16 +77,18 @@ export default {
         : (this.currentType = "sell");
     },
 
+    //=>network
     getHomeDataList(type) {
       const page = this.goods[type].page + 1;
       getHomeData(type, page).then(res => {
-        console.log(res);
+        // console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
+      this.$refs.scroll.finishLoadMore();
     }
   },
-  created() {
+  mounted() {
     getHomeMultidata().then(res => {
       // console.log(res.data);
       this.banner = res.data.banner.list;
@@ -76,8 +98,26 @@ export default {
     this.getHomeDataList("pop", 0);
     this.getHomeDataList("new", 0);
     this.getHomeDataList("sell", 0);
+
+    const refresh = debounce(this.$refs.scroll.refresh, 500);
+    this.$bus.$on("imageLoad", () => {
+      if (this.$refs.scroll) {
+        // this.$refs.scroll.refresh();
+        refresh();
+      }
+    });
+  },
+  activated() {
+    // console.log(this.scrollY);
+    this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+    this.$refs.scroll.refresh();
+  },
+  deactivated() {
+    this.scrollY = this.$refs.scroll.scroll.y;
   },
   components: {
+    HomeNav,
     HomeRecommend,
     TabControl,
     GoodsList,
@@ -88,6 +128,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+#nav-bar {
+  position  fixed
+  top 0
+}
 .class {
   height: 100vh;
 }
@@ -109,5 +153,10 @@ img {
 
 .wrapper {
   height: calc(100vh - 99px);
+  margin-top 44px
+}
+
+.tab-control {
+  // position  fixed
 }
 </style>

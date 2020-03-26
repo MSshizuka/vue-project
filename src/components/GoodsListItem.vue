@@ -1,6 +1,6 @@
 <template>
-  <div class="goods">
-    <a :href="goods.link"><img v-lazy="goods.show.img" alt /></a>
+  <div class="goods" @click="toDetail">
+    <img v-lazy="goods.show.img" :alt="goods.title" @load="imageLoad" />
     <div class="goods-info">
       <p>{{goods.title}}</p>
       <span class="price">￥{{goods.price}}</span>
@@ -18,6 +18,15 @@ export default {
       default() {
         return {};
       }
+    }
+  },
+  methods: {
+    imageLoad() {
+      this.$bus.$emit('imageLoad');
+    },
+    toDetail () {
+      // console.log('到详情页');
+      this.$router.push('/detail/'+ this.goods.iid)
     }
   }
 };

@@ -30,5 +30,10 @@ export default new Router({
       name: 'profile',
       component: loadable(() => import('@/views/profile/index.vue')),
     },
+    {
+      path: '/detail/:iid',
+      name: 'detail',
+      component: loadable(() => import('@/views/detail/index.vue')),
+    },
   ],
 });

@@ -1,8 +1,5 @@
 import AjaxRequest from '@/network/axios';
 
-export const BANNER = 'banner';
-export const RECOMMEND = 'recommend';
-
 export function getHomeMultidata() {
   return AjaxRequest.request({
     url: '/home/multidata',

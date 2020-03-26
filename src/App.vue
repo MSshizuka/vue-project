@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <div class="header">
-      <home-nav />
-    </div>
     <div class="container">
-      <router-view></router-view>
-    </div>
-    <div class="footer">
-      <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler"></cube-tab-bar>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
+      <div class="footer">
+        <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler"></cube-tab-bar>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import HomeNav from "@/views/home/HomeNav.vue";
 export default {
   data() {
     return {
@@ -53,12 +51,9 @@ export default {
   },
   methods: {
     changeHandler(value) {
-      // if you clicked different tab, this methods can be emitted
-      this.$router.push(value);
+      this.$router.replace(value);
+      // console.log(value);
     }
-  },
-  components: {
-    HomeNav
   }
 };
 </script>
@@ -77,11 +72,15 @@ html, body, #app {
 .container {
   flex: 1;
   overflow: scroll;
-  background-color #fff
+  background-color: #fff;
 }
 
 .footer {
+  position fixed
+  bottom 0  
+  width 100%
   background: #f2f2f2;
+  background-color #fff
 }
 
 .cube-tab {

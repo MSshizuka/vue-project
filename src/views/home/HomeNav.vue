@@ -31,8 +31,10 @@ export default {
 
 <style lang="stylus" scoped>
 .nav-bar {
+  position fixed
   color: #aaa;
   font-size: 20px;
+  background-color #fff
 
   .iconfont {
     font-size: 22px;

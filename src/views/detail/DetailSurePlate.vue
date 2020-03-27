@@ -83,9 +83,10 @@ export default {
       this.$emit("minusCount", 1);
     },
     sureAdd() {
-      // console.log(this.$parent.index);
+      let obj = {};
+      obj = {...this.goodsInfo};
       if (this.$parent.index) {
-        this.$store.commit("addToCart", this.goodsInfo);
+        this.$store.commit("addToCart", obj);
         this.$router.replace("/cart");
       } else {
         this.toast = Toast.$create({
@@ -105,7 +106,7 @@ export default {
           // console.log(this.toast);
         }, 1000);
         this.$emit("canclePlate", this.goodsInfo.count);
-        this.$store.commit("addToCart", this.goodsInfo);
+        this.$store.commit("addToCart", obj);
       }
       //
     }

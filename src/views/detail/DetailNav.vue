@@ -1,9 +1,9 @@
 <template>
   <nav-bar class="nav-bar">
     <span slot="left" class="iconfont icon-fanhui1" @click="back"></span>
-    <div slot="center" class="titles">
+    <a slot="center" class="titles">
       <div v-for="(item, index) in titles" :key="index" :class="currentIndex === index ? 'active' : null" @click="titleClick(index)">{{item}}</div>
-    </div>
+    </a>
   </nav-bar>
 </template>
 
@@ -11,6 +11,7 @@
 import NavBar from '@/components/NavBar';
 
 export default {
+  name: "DetailNav",
   data() {
     return {
       titles: ['商品','参数','评论','推荐'],
@@ -21,8 +22,12 @@ export default {
     titleClick(index) {
       // console.log(index);
       this.currentIndex = index;
+      console.log(this.$el);
+      
     },
     back() {
+      console.log(this.$parent);
+      // this.$parent.$destroy();
       this.$router.back();
     }
   },

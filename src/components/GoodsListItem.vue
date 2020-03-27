@@ -1,6 +1,6 @@
 <template>
   <div class="goods" @click="toDetail">
-    <img v-lazy="goods.show.img" :alt="goods.title" @load="imageLoad" />
+    <img v-lazy="img" :alt="goods.title" @load="imageLoad" />
     <div class="goods-info">
       <p>{{goods.title}}</p>
       <span class="price">￥{{goods.price}}</span>
@@ -12,21 +12,31 @@
 
 <script>
 export default {
+  name: "GoodsListItem",
   props: {
     goods: {
       type: Object,
       default() {
         return {};
       }
+    },
+    img: {
+      type: String
     }
   },
   methods: {
     imageLoad() {
-      this.$bus.$emit('imageLoad');
+      this.$bus.$emit("imageLoad");
     },
-    toDetail () {
-      // console.log('到详情页');
-      this.$router.push('/detail/'+ this.goods.iid)
+    toDetail() {
+      // console.log(this.$route.path.indexOf("detail") > -1);
+      if (this.$route.path.indexOf("detail") > -1) {
+        // console.log(this.$route.path, this.goods.item_id);
+        // this.$parent.$parent.$forceUpdate();
+        return;
+      } else {
+        this.$router.push("/detail/" + this.goods.iid);
+      }
     }
   }
 };
@@ -34,15 +44,15 @@ export default {
 
 <style lang="stylus" scoped>
 .goods {
-  width 50%
+  width: 50%;
   padding-bottom: 40px;
   position: relative;
-  text-align center
+  text-align: center;
 }
 
 .goods img {
   width: 98%;
-  border-radius 5px
+  border-radius: 5px;
 }
 
 .goods-info {
@@ -63,7 +73,7 @@ export default {
 }
 
 .goods-info .price {
-  color: #ff5777
+  color: #ff5777;
   margin-right: 10px;
 }
 

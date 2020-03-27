@@ -40,6 +40,7 @@
     padding: 0 8px;
     color: #999;
     border-bottom: 5px solid #f2f5f8;
+    background-color: #fff;
   }
 
   .info-title {

@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div class="container">
-      <keep-alive>
-        <router-view />
+      <keep-alive exclude="Detail">
+        <router-view></router-view>
       </keep-alive>
       <div class="footer">
-        <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler"></cube-tab-bar>
+        <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler" v-show="isShow"></cube-tab-bar>
       </div>
     </div>
   </div>
@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: "App",
   data() {
     return {
       selectedLabelDefault: "/",
@@ -37,7 +38,8 @@ export default {
           value: "/profile",
           icon: "iconfont icon-denglu-copy"
         }
-      ]
+      ],
+      isShow: true
     };
   },
   watch: {
@@ -52,9 +54,8 @@ export default {
   methods: {
     changeHandler(value) {
       this.$router.replace(value);
-      // console.log(value);
     }
-  }
+  },
 };
 </script>
 
@@ -62,6 +63,7 @@ export default {
 html, body, #app {
   width: 100%;
   height: 100%;
+  background-color #fff
 }
 
 #app {

@@ -56,6 +56,7 @@
   .shop-info {
     padding: 25px 8px;
     border-bottom: 5px solid #f2f5f8;
+    background-color: #fff;
   }
 
   .shop-top {

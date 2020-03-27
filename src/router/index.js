@@ -33,7 +33,7 @@ export default new Router({
     {
       path: '/detail/:iid',
       name: 'detail',
-      component: loadable(() => import('@/views/detail/index.vue')),
+      component: () => import('@/views/detail/Detail.vue')
     },
   ],
 });

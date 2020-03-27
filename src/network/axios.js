@@ -10,7 +10,7 @@ class AjaxRequest {
       time: 0,
     });
     this.queue = {};
-    console.dir(this);
+    // console.dir(this);
   }
 
   setInterceptor(instance, url) {

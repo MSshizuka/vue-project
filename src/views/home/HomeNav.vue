@@ -13,6 +13,7 @@
 import NavBar from '@/components/NavBar';
 
 export default {
+  name: "HomeNav",
   methods: {
     login() {
       console.log('去往登录页');
@@ -32,6 +33,7 @@ export default {
 <style lang="stylus" scoped>
 .nav-bar {
   position fixed
+  width 100%
   color: #aaa;
   font-size: 20px;
   background-color #fff
@@ -57,7 +59,7 @@ export default {
 
   .icon-sousuo5 {
     position absolute
-    left 290px
+    left 298px
     top 2px
   }
 }

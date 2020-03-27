@@ -30,7 +30,10 @@
     methods: {
       imageLoad() {
         if (++this.counter === this.imagesLength) {
-          this.$emit('imageLoad');
+          let timer = setTimeout(() => {
+            clearTimeout(timer);
+            this.$emit('imageLoad');
+          }, 500)
         }
       }
     },
@@ -46,6 +49,7 @@
   .goods-info {
     padding: 20px 0;
     border-bottom: 5px solid #f2f5f8;
+    background-color: #fff;
   }
 
   .info-desc {

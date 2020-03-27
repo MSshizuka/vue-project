@@ -22,11 +22,11 @@ export default {
     titleClick(index) {
       // console.log(index);
       this.currentIndex = index;
-      console.log(this.$el);
-      
+      // console.log(this.$el);
+      this.$emit('titleClick', index);
     },
     back() {
-      console.log(this.$parent);
+      // console.log(this.$parent);
       // this.$parent.$destroy();
       this.$router.back();
     }

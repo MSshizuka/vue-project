@@ -50,7 +50,8 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
-      scrollY: 0
+      scrollY: 0,
+      imageLoad: null
     };
   },
   computed: {},
@@ -100,12 +101,13 @@ export default {
     this.getHomeDataList("sell", 0);
 
     const refresh = debounce(this.$refs.scroll.refresh, 500);
-    this.$bus.$on("imageLoad", () => {
+    this.imageLoad = () => {
       if (this.$refs.scroll) {
         // this.$refs.scroll.refresh();
         refresh();
       }
-    });
+    };
+    this.$bus.$on("imageLoad", this.imageLoad);
   },
   activated() {
     // console.log(this.scrollY);
@@ -115,6 +117,8 @@ export default {
   },
   deactivated() {
     this.scrollY = this.$refs.scroll.scroll.y;
+
+    this.$bus.$off("imageLoad", this.imageLoad);
   },
   components: {
     HomeNav,
@@ -129,9 +133,10 @@ export default {
 
 <style lang="stylus" scoped>
 #nav-bar {
-  position  fixed
-  top 0
+  position: fixed;
+  top: 0;
 }
+
 .class {
   height: 100vh;
 }
@@ -153,7 +158,7 @@ img {
 
 .wrapper {
   height: calc(100vh - 99px);
-  margin-top 44px
+  margin-top: 44px;
 }
 
 .tab-control {

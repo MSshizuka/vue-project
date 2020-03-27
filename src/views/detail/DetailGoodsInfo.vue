@@ -8,7 +8,7 @@
     </div>
     <div class="info-key">{{detailInfo.detailImage[0].key}}</div>
     <div class="info-list">
-      <img v-for="(item, index) in detailInfo.detailImage[0].list" v-lazy="item" :key ="index" alt="" @load="imageLoad">
+      <img v-for="(item, index) in detailInfo.detailImage[0].list" v-lazy="item" :key ="index" alt="" @load="goodsImageLoad">
     </div>
   </div>
 </template>
@@ -28,13 +28,8 @@
       }
     },
     methods: {
-      imageLoad() {
-        if (++this.counter === this.imagesLength) {
-          let timer = setTimeout(() => {
-            clearTimeout(timer);
-            this.$emit('imageLoad');
-          }, 500)
-        }
+      goodsImageLoad() {
+        this.$emit('goodsImageLoad');
       }
     },
     watch: {

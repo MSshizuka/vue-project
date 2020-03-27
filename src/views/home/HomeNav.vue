@@ -59,7 +59,7 @@ export default {
 
   .icon-sousuo5 {
     position absolute
-    left 298px
+    left 78%
     top 2px
   }
 }

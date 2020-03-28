@@ -1,24 +1,26 @@
 <template>
   <div class="home">
     <home-nav />
-    <scroll ref="scroll" @scroll="scroll" :probe-type="2" :pullUpLoad="true" @pullUpLoad="loadMore">
-      <div class="slide">
-        <cube-slide ref="slide" :data="banner">
-          <cube-slide-item v-for="(item, index) in banner" :key="index">
-            <a :href="item.link">
-              <img :src="item.image" />
-            </a>
-          </cube-slide-item>
-        </cube-slide>
+    <scroll ref="scroll" @scroll="scroll" :probe-type="2" :pullUpLoad="true" @pullingUp="loadMore" id="home-scroll">
+      <div class="home-content">
+        <div class="slide">
+          <cube-slide ref="slide" :data="banner">
+            <cube-slide-item v-for="(item, index) in banner" :key="index">
+              <a :href="item.link">
+                <img :src="item.image" />
+              </a>
+            </cube-slide-item>
+          </cube-slide>
+        </div>
+        <home-recommend :recommends="recommend" />
+        <tab-control
+          class="tab-control"
+          :titles="['流行','新款','热卖']"
+          @itemClick="itemClick"
+          ref="tabControl"
+        />
+        <goods-list :goodsList="goods[currentType].list"></goods-list>
       </div>
-      <home-recommend :recommends="recommend" />
-      <tab-control
-        class="tab-control"
-        :titles="['流行','新款','热卖']"
-        @itemClick="itemClick"
-        ref="tabControl"
-      />
-      <goods-list :goodsList="goods[currentType].list"></goods-list>
     </scroll>
     <back-top @click.native="backClick" v-if="isShowBackTop" />
   </div>
@@ -44,9 +46,9 @@ export default {
       banner: [],
       recommend: [],
       goods: {
-        pop: { page: 0, list: [] },
-        new: { page: 0, list: [] },
-        sell: { page: 0, list: [] }
+        pop: { page: 4, list: [] },
+        new: { page: 4, list: [] },
+        sell: { page: 4, list: [] }
       },
       currentType: "pop",
       isShowBackTop: false,
@@ -86,7 +88,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
-      this.$refs.scroll.finishLoadMore();
+      this.$refs.scroll.finishPullUp();
     }
   },
   mounted() {
@@ -96,9 +98,9 @@ export default {
       this.recommend = res.data.recommend.list;
     });
 
-    this.getHomeDataList("pop", 0);
-    this.getHomeDataList("new", 0);
-    this.getHomeDataList("sell", 0);
+    this.getHomeDataList("pop");
+    this.getHomeDataList("new");
+    this.getHomeDataList("sell");
 
     const refresh = debounce(this.$refs.scroll.refresh, 500);
     this.imageLoad = () => {
@@ -156,12 +158,9 @@ img {
   height: calc(100vh - 55px);
 }
 
-.wrapper {
+#home-scroll {
   height: calc(100vh - 99px);
   margin-top: 44px;
 }
 
-.tab-control {
-  // position  fixed
-}
 </style>

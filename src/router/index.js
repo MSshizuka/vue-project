@@ -18,7 +18,7 @@ export default new Router({
     {
       path: '/category',
       name: 'category',
-      component: loadable(() => import('@/views/category/index.vue')),
+      component: () => import('@/views/category/index.vue'),
     },
     {
       path: '/cart',

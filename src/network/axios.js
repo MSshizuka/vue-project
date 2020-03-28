@@ -3,31 +3,33 @@ import { Toast } from 'cube-ui';
 
 class AjaxRequest {
   constructor() {
-    this.baseURL = 'http://123.207.32.32:8000/api/wh';
+    // this.baseURL = 'http://123.207.32.32:8000/api/h3';
+    // this.baseURL = 'http://localhost:8008';
+    this.baseURL = 'http://101.132.131.177:8008';
     // this.timeout = 5000;
-    this.toast = Toast.$create({
-      txt: 'loading...',
-      time: 0,
-    });
-    this.queue = {};
+    // this.toast = Toast.$create({
+    //   txt: 'loading...',
+    //   time: 0,
+    // });
+    // this.queue = {};
     // console.dir(this);
   }
 
   setInterceptor(instance, url) {
     instance.interceptors.request.use((config) => {
-      if (Object.keys(this.queue).length === 0) {
-        this.toast.show();
-      }
-      this.queue[url] = url;
+      // if (Object.keys(this.queue).length === 0) {
+      //   this.toast.show();
+      // }
+      // this.queue[url] = url;
       // console.dir(instance);
       return config;
     }, err => Promise.reject(err));
 
     instance.interceptors.response.use((response) => {
-      delete this.queue[url];
-      if (Object.keys(this.queue).length === 0) {
-        this.toast.hide();
-      }
+      // delete this.queue[url];
+      // if (Object.keys(this.queue).length === 0) {
+      //   this.toast.hide();
+      // }
       return response.data;
     }, (err) => {
       if (err && err.response) {

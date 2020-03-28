@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <detail-nav @titleClick="titleClick" ref="nav" />
-    <scroll class="wrapper" ref="scroll" :probeType="3" @scroll="contentScroll">
+    <scroll class="wrapper" ref="scroll" :probeType="3" @scroll="contentScroll" :data="[...detailInfo]">
       <div class="content">
         <div class="slide">
           <cube-slide :data="topImages">
@@ -80,7 +80,8 @@ export default {
         title: "",
         desc: "",
         newPrice: "",
-        count: 0
+        count: 0,
+        isSure: true
       }
     };
   },

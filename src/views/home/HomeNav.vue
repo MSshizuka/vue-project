@@ -21,7 +21,7 @@ export default {
     },
     detail() {
       console.log('去往详情页');
-      this.$router.push('/detail');
+      this.$router.push('/category');
     },
   },
   components: {

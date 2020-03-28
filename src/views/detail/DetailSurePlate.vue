@@ -87,6 +87,7 @@ export default {
       obj = {...this.goodsInfo};
       if (this.$parent.index) {
         this.$store.commit("addToCart", obj);
+        this.$store.commit("defaultCheckAll", true);
         this.$router.replace("/cart");
       } else {
         this.toast = Toast.$create({
@@ -102,7 +103,7 @@ export default {
               txt: "loading...",
               time: 0
             });
-          }, 1000);
+          }, 500);
           // console.log(this.toast);
         }, 1000);
         this.$emit("canclePlate", this.goodsInfo.count);

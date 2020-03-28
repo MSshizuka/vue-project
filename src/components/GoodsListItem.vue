@@ -29,14 +29,14 @@ export default {
       this.$bus.$emit("imageLoad");
     },
     toDetail() {
-      // // console.log(this.$route.path.indexOf("detail") > -1);
-      // if (this.$route.path.indexOf("detail") > -1) {
-      //   // console.log(this.$route.path, this.goods.item_id);
-      //   // this.$parent.$parent.$forceUpdate();
-      //   return;
-      // } else {
+      // console.log(this.$route.path.indexOf("detail") > -1);
+      if (this.$route.path.indexOf("detail") > -1) {
+        // console.log(this.$route.path, this.goods.item_id);
+        // this.$parent.$parent.$forceUpdate();
+        return;
+      } else {
         this.$router.push("/detail/" + this.goods.iid);
-      // }
+      }
     }
   }
 };

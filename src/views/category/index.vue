@@ -1,446 +1,254 @@
 <template>
   <div>
-    <div class="nav"></div>
-    <div class="wrapper">
-      <div class="content">
+    <nav-bar>
+      <div slot="center">商城中心</div>
+    </nav-bar>
+    <div class="category-content">
+      <category-tab-menu :categories="categories" @selectItem="selectItem" />
+      <scroll id="catgory-content-box">
+        <div>
+          <div class="container-right">
+          <category-goods-icon :subcategories="showSubcategory" />
+          <category-goods-info />
+        </div>
         <ul>
-          <li>泪飙01</li>
-          <li>泪飙02</li>
-          <li>泪飙03</li>
-          <li>泪飙04</li>
-          <li>泪飙05</li>
-          <li>泪飙06</li>
-          <li>泪飙07</li>
-          <li>泪飙08</li>
-          <li>泪飙09</li>
-          <li>泪飙10</li>
-          <li>泪飙11</li>
-          <li>泪飙12</li>
-          <li>泪飙13</li>
-          <li>泪飙14</li>
-          <li>泪飙15</li>
-          <li>泪飙16</li>
-          <li>泪飙17</li>
-          <li>泪飙18</li>
-          <li>泪飙19</li>
-          <li>泪飙20</li>
-          <li>泪飙21</li>
-          <li>泪飙22</li>
-          <li>泪飙23</li>
-          <li>泪飙24</li>
-          <li>泪飙25</li>
-          <li>泪飙26</li>
-          <li>泪飙27</li>
-          <li>泪飙28</li>
-          <li>泪飙29</li>
-          <li>泪飙30</li>
-          <li>泪飙31</li>
-          <li>泪飙32</li>
-          <li>泪飙33</li>
-          <li>泪飙34</li>
-          <li>泪飙35</li>
-          <li>泪飙36</li>
-          <li>泪飙37</li>
-          <li>泪飙38</li>
-          <li>泪飙39</li>
-          <li>泪飙40</li>
-          <li>泪飙41</li>
-          <li>泪飙42</li>
-          <li>泪飙43</li>
-          <li>泪飙44</li>
-          <li>泪飙45</li>
-          <li>泪飙46</li>
-          <li>泪飙47</li>
-          <li>泪飙48</li>
-          <li>泪飙49</li>
-          <li>泪飙50</li>
-          <li>泪飙51</li>
-          <li>泪飙52</li>
-          <li>泪飙53</li>
-          <li>泪飙54</li>
-          <li>泪飙55</li>
-          <li>泪飙56</li>
-          <li>泪飙57</li>
-          <li>泪飙58</li>
-          <li>泪飙59</li>
-          <li>泪飙60</li>
-          <li>泪飙61</li>
-          <li>泪飙62</li>
-          <li>泪飙63</li>
-          <li>泪飙64</li>
-          <li>泪飙65</li>
-          <li>泪飙66</li>
-          <li>泪飙67</li>
-          <li>泪飙68</li>
-          <li>泪飙69</li>
-          <li>泪飙70</li>
-          <li>泪飙71</li>
-          <li>泪飙72</li>
-          <li>泪飙73</li>
-          <li>泪飙74</li>
-          <li>泪飙75</li>
-          <li>泪飙76</li>
-          <li>泪飙77</li>
-          <li>泪飙78</li>
-          <li>泪飙79</li>
-          <li>泪飙80</li>
-          <li>泪飙81</li>
-          <li>泪飙82</li>
-          <li>泪飙83</li>
-          <li>泪飙84</li>
-          <li>泪飙85</li>
-          <li>泪飙86</li>
-          <li>泪飙87</li>
-          <li>泪飙88</li>
-          <li>泪飙89</li>
-          <li>泪飙90</li>
-          <li>泪飙91</li>
-          <li>泪飙92</li>
-          <li>泪飙93</li>
-          <li>泪飙94</li>
-          <li>泪飙95</li>
-          <li>泪飙96</li>
-          <li>泪飙97</li>
-          <li>泪飙98</li>
-          <li>泪飙99</li>
-          <li>泪飙100</li>
-          <li>泪飙101</li>
-          <li>泪飙102</li>
-          <li>泪飙103</li>
-          <li>泪飙104</li>
-          <li>泪飙105</li>
-          <li>泪飙106</li>
-          <li>泪飙107</li>
-          <li>泪飙108</li>
-          <li>泪飙109</li>
-          <li>泪飙110</li>
-          <li>泪飙111</li>
-          <li>泪飙112</li>
-          <li>泪飙113</li>
-          <li>泪飙114</li>
-          <li>泪飙115</li>
-          <li>泪飙116</li>
-          <li>泪飙117</li>
-          <li>泪飙118</li>
-          <li>泪飙119</li>
-          <li>泪飙120</li>
-          <li>泪飙121</li>
-          <li>泪飙122</li>
-          <li>泪飙123</li>
-          <li>泪飙124</li>
-          <li>泪飙125</li>
-          <li>泪飙126</li>
-          <li>泪飙127</li>
-          <li>泪飙128</li>
-          <li>泪飙129</li>
-          <li>泪飙130</li>
-          <li>泪飙131</li>
-          <li>泪飙132</li>
-          <li>泪飙133</li>
-          <li>泪飙134</li>
-          <li>泪飙135</li>
-          <li>泪飙136</li>
-          <li>泪飙137</li>
-          <li>泪飙138</li>
-          <li>泪飙139</li>
-          <li>泪飙140</li>
-          <li>泪飙141</li>
-          <li>泪飙142</li>
-          <li>泪飙143</li>
-          <li>泪飙144</li>
-          <li>泪飙145</li>
-          <li>泪飙146</li>
-          <li>泪飙147</li>
-          <li>泪飙148</li>
-          <li>泪飙149</li>
-          <li>泪飙150</li>
-          <li>泪飙151</li>
-          <li>泪飙152</li>
-          <li>泪飙153</li>
-          <li>泪飙154</li>
-          <li>泪飙155</li>
-          <li>泪飙156</li>
-          <li>泪飙157</li>
-          <li>泪飙158</li>
-          <li>泪飙159</li>
-          <li>泪飙160</li>
-          <li>泪飙161</li>
-          <li>泪飙162</li>
-          <li>泪飙163</li>
-          <li>泪飙164</li>
-          <li>泪飙165</li>
-          <li>泪飙166</li>
-          <li>泪飙167</li>
-          <li>泪飙168</li>
-          <li>泪飙169</li>
-          <li>泪飙170</li>
-          <li>泪飙171</li>
-          <li>泪飙172</li>
-          <li>泪飙173</li>
-          <li>泪飙174</li>
-          <li>泪飙175</li>
-          <li>泪飙176</li>
-          <li>泪飙177</li>
-          <li>泪飙178</li>
-          <li>泪飙179</li>
-          <li>泪飙180</li>
-          <li>泪飙181</li>
-          <li>泪飙182</li>
-          <li>泪飙183</li>
-          <li>泪飙184</li>
-          <li>泪飙185</li>
-          <li>泪飙186</li>
-          <li>泪飙187</li>
-          <li>泪飙188</li>
-          <li>泪飙189</li>
-          <li>泪飙190</li>
-          <li>泪飙191</li>
-          <li>泪飙192</li>
-          <li>泪飙193</li>
-          <li>泪飙194</li>
-          <li>泪飙195</li>
-          <li>泪飙196</li>
-          <li>泪飙197</li>
-          <li>泪飙198</li>
-          <li>泪飙199</li>
-          <li>泪飙200</li>
-          <li>泪飙201</li>
-          <li>泪飙202</li>
-          <li>泪飙203</li>
-          <li>泪飙204</li>
-          <li>泪飙205</li>
-          <li>泪飙206</li>
-          <li>泪飙207</li>
-          <li>泪飙208</li>
-          <li>泪飙209</li>
-          <li>泪飙210</li>
-          <li>泪飙211</li>
-          <li>泪飙212</li>
-          <li>泪飙213</li>
-          <li>泪飙214</li>
-          <li>泪飙215</li>
-          <li>泪飙216</li>
-          <li>泪飙217</li>
-          <li>泪飙218</li>
-          <li>泪飙219</li>
-          <li>泪飙220</li>
-          <li>泪飙221</li>
-          <li>泪飙222</li>
-          <li>泪飙223</li>
-          <li>泪飙224</li>
-          <li>泪飙225</li>
-          <li>泪飙226</li>
-          <li>泪飙227</li>
-          <li>泪飙228</li>
-          <li>泪飙229</li>
-          <li>泪飙230</li>
-          <li>泪飙231</li>
-          <li>泪飙232</li>
-          <li>泪飙233</li>
-          <li>泪飙234</li>
-          <li>泪飙235</li>
-          <li>泪飙236</li>
-          <li>泪飙237</li>
-          <li>泪飙238</li>
-          <li>泪飙239</li>
-          <li>泪飙240</li>
-          <li>泪飙241</li>
-          <li>泪飙242</li>
-          <li>泪飙243</li>
-          <li>泪飙244</li>
-          <li>泪飙245</li>
-          <li>泪飙246</li>
-          <li>泪飙247</li>
-          <li>泪飙248</li>
-          <li>泪飙249</li>
-          <li>泪飙250</li>
-          <li>泪飙251</li>
-          <li>泪飙252</li>
-          <li>泪飙253</li>
-          <li>泪飙254</li>
-          <li>泪飙255</li>
-          <li>泪飙256</li>
-          <li>泪飙257</li>
-          <li>泪飙258</li>
-          <li>泪飙259</li>
-          <li>泪飙260</li>
-          <li>泪飙261</li>
-          <li>泪飙262</li>
-          <li>泪飙263</li>
-          <li>泪飙264</li>
-          <li>泪飙265</li>
-          <li>泪飙266</li>
-          <li>泪飙267</li>
-          <li>泪飙268</li>
-          <li>泪飙269</li>
-          <li>泪飙270</li>
-          <li>泪飙271</li>
-          <li>泪飙272</li>
-          <li>泪飙273</li>
-          <li>泪飙274</li>
-          <li>泪飙275</li>
-          <li>泪飙276</li>
-          <li>泪飙277</li>
-          <li>泪飙278</li>
-          <li>泪飙279</li>
-          <li>泪飙280</li>
-          <li>泪飙281</li>
-          <li>泪飙282</li>
-          <li>泪飙283</li>
-          <li>泪飙284</li>
-          <li>泪飙285</li>
-          <li>泪飙286</li>
-          <li>泪飙287</li>
-          <li>泪飙288</li>
-          <li>泪飙289</li>
-          <li>泪飙290</li>
-          <li>泪飙291</li>
-          <li>泪飙292</li>
-          <li>泪飙293</li>
-          <li>泪飙294</li>
-          <li>泪飙295</li>
-          <li>泪飙296</li>
-          <li>泪飙297</li>
-          <li>泪飙298</li>
-          <li>泪飙299</li>
-          <li>泪飙300</li>
-          <li>泪飙301</li>
-          <li>泪飙302</li>
-          <li>泪飙303</li>
-          <li>泪飙304</li>
-          <li>泪飙305</li>
-          <li>泪飙306</li>
-          <li>泪飙307</li>
-          <li>泪飙308</li>
-          <li>泪飙309</li>
-          <li>泪飙310</li>
-          <li>泪飙311</li>
-          <li>泪飙312</li>
-          <li>泪飙313</li>
-          <li>泪飙314</li>
-          <li>泪飙315</li>
-          <li>泪飙316</li>
-          <li>泪飙317</li>
-          <li>泪飙318</li>
-          <li>泪飙319</li>
-          <li>泪飙320</li>
-          <li>泪飙321</li>
-          <li>泪飙322</li>
-          <li>泪飙323</li>
-          <li>泪飙324</li>
-          <li>泪飙325</li>
-          <li>泪飙326</li>
-          <li>泪飙327</li>
-          <li>泪飙328</li>
-          <li>泪飙329</li>
-          <li>泪飙330</li>
-          <li>泪飙331</li>
-          <li>泪飙332</li>
-          <li>泪飙333</li>
-          <li>泪飙334</li>
-          <li>泪飙335</li>
-          <li>泪飙336</li>
-          <li>泪飙337</li>
-          <li>泪飙338</li>
-          <li>泪飙339</li>
-          <li>泪飙340</li>
-          <li>泪飙341</li>
-          <li>泪飙342</li>
-          <li>泪飙343</li>
-          <li>泪飙344</li>
-          <li>泪飙345</li>
-          <li>泪飙346</li>
-          <li>泪飙347</li>
-          <li>泪飙348</li>
-          <li>泪飙349</li>
-          <li>泪飙350</li>
-          <li>泪飙351</li>
-          <li>泪飙352</li>
-          <li>泪飙353</li>
-          <li>泪飙354</li>
-          <li>泪飙355</li>
-          <li>泪飙356</li>
-          <li>泪飙357</li>
-          <li>泪飙358</li>
-          <li>泪飙359</li>
-          <li>泪飙360</li>
-          <li>泪飙361</li>
-          <li>泪飙362</li>
-          <li>泪飙363</li>
-          <li>泪飙364</li>
-          <li>泪飙365</li>
-          <li>泪飙366</li>
-          <li>泪飙367</li>
-          <li>泪飙368</li>
-          <li>泪飙369</li>
-          <li>泪飙370</li>
-          <li>泪飙371</li>
-          <li>泪飙372</li>
-          <li>泪飙373</li>
-          <li>泪飙374</li>
-          <li>泪飙375</li>
-          <li>泪飙376</li>
-          <li>泪飙377</li>
-          <li>泪飙378</li>
-          <li>泪飙379</li>
-          <li>泪飙380</li>
-          <li>泪飙381</li>
-          <li>泪飙382</li>
-          <li>泪飙383</li>
-          <li>泪飙384</li>
-          <li>泪飙385</li>
-          <li>泪飙386</li>
-          <li>泪飙387</li>
-          <li>泪飙388</li>
-          <li>泪飙389</li>
-          <li>泪飙390</li>
-          <li>泪飙391</li>
-          <li>泪飙392</li>
-          <li>泪飙393</li>
-          <li>泪飙394</li>
-          <li>泪飙395</li>
-          <li>泪飙396</li>
-          <li>泪飙397</li>
-          <li>泪飙398</li>
-          <li>泪飙399</li>
-          <li>泪飙400</li>
+          <li>001</li>
+          <li>002</li>
+          <li>003</li>
+          <li>004</li>
+          <li>005</li>
+          <li>006</li>
+          <li>007</li>
+          <li>008</li>
+          <li>009</li>
+          <li>010</li>
+          <li>011</li>
+          <li>012</li>
+          <li>013</li>
+          <li>014</li>
+          <li>015</li>
+          <li>016</li>
+          <li>017</li>
+          <li>018</li>
+          <li>019</li>
+          <li>020</li>
+          <li>021</li>
+          <li>022</li>
+          <li>023</li>
+          <li>024</li>
+          <li>025</li>
+          <li>026</li>
+          <li>027</li>
+          <li>028</li>
+          <li>029</li>
+          <li>030</li>
+          <li>031</li>
+          <li>032</li>
+          <li>033</li>
+          <li>034</li>
+          <li>035</li>
+          <li>036</li>
+          <li>037</li>
+          <li>038</li>
+          <li>039</li>
+          <li>040</li>
+          <li>041</li>
+          <li>042</li>
+          <li>043</li>
+          <li>044</li>
+          <li>045</li>
+          <li>046</li>
+          <li>047</li>
+          <li>048</li>
+          <li>049</li>
+          <li>050</li>
+          <li>051</li>
+          <li>052</li>
+          <li>053</li>
+          <li>054</li>
+          <li>055</li>
+          <li>056</li>
+          <li>057</li>
+          <li>058</li>
+          <li>059</li>
+          <li>060</li>
+          <li>061</li>
+          <li>062</li>
+          <li>063</li>
+          <li>064</li>
+          <li>065</li>
+          <li>066</li>
+          <li>067</li>
+          <li>068</li>
+          <li>069</li>
+          <li>070</li>
+          <li>071</li>
+          <li>072</li>
+          <li>073</li>
+          <li>074</li>
+          <li>075</li>
+          <li>076</li>
+          <li>077</li>
+          <li>078</li>
+          <li>079</li>
+          <li>080</li>
+          <li>081</li>
+          <li>082</li>
+          <li>083</li>
+          <li>084</li>
+          <li>085</li>
+          <li>086</li>
+          <li>087</li>
+          <li>088</li>
+          <li>089</li>
+          <li>090</li>
+          <li>091</li>
+          <li>092</li>
+          <li>093</li>
+          <li>094</li>
+          <li>095</li>
+          <li>096</li>
+          <li>097</li>
+          <li>098</li>
+          <li>099</li>
+          <li>100</li>
+          <li></li>
         </ul>
-      </div>
+        </div>
+      </scroll>
     </div>
   </div>
 </template>
 
 <script>
-import BScroll from "better-scroll";
+import Scroll from "@/components/Scroll";
+
+import NavBar from "@/components/NavBar.vue";
+import CategoryTabMenu from "@/views/category/CategoryTabMenu.vue";
+import CategoryGoodsInfo from "@/views/category/CategoryGoodsInfo";
+import CategoryGoodsIcon from "@/views/category/CategoryGoodsIcon";
+
+import {
+  getCategory,
+  getSubcategory,
+  getCategoryDetail
+} from "@/network/category.js";
+
 export default {
-  mounted() {
-    this.scroll = new BScroll(".wrapper", {
-      probeType: 3,
-      pullUpLoad: true
-    });
+  name: "Category",
+  data() {
+    return {
+      categories: [],
+      categoryData: {},
+      currentIndex: -1
+    };
+  },
+  created() {
+    // 1.请求分类数据
+    this._getCategory();
+  },
+  computed: {
+    showSubcategory() {
+      if (this.currentIndex === -1) return {};
+      return this.categoryData[this.currentIndex].subcategories;
+    },
+    showCategoryDetail() {
+      if (this.currentIndex === -1) return [];
+      return this.categoryData[this.currentIndex].categoryDetail[
+        this.currentType
+      ];
+    }
+  },
+  methods: {
+    _getCategory() {
+      getCategory().then(res => {
+        console.log(res.data);
 
-    this.scroll.on('scroll', position => {
-      console.log(position.y);
-    })
-
-    this.scroll.on('pullingUp', () => {
-      console.log('上拉加载更多');
-      
-    })
+        // 1.获取分类数据
+        this.categories = res.data.category.list;
+        // 2.初始化每个类别的子数据
+        for (let i = 0; i < this.categories.length; i++) {
+          this.categoryData[i] = {
+            subcategories: {},
+            categoryDetail: {
+              pop: [],
+              new: [],
+              sell: []
+            }
+          };
+        }
+        // 3.请求第一个分类的数据
+        this._getSubcategories(0);
+      });
+    },
+    _getSubcategories(index) {
+      this.currentIndex = index;
+      const mailKey = this.categories[index].maitKey;
+      getSubcategory(mailKey).then(res => {
+        this.categoryData[index].subcategories = res.data;
+        this.categoryData = { ...this.categoryData };
+        this._getCategoryDetail('pop');
+        this._getCategoryDetail('sell');
+        this._getCategoryDetail('new');
+      });
+    },
+    _getCategoryDetail(type) {
+      // 1.获取请求的miniWallkey
+      const miniWallkey = this.categories[this.currentIndex].miniWallkey;
+      // 2.发送请求,传入miniWallkey和type
+      getCategoryDetail(miniWallkey, type).then(res => {
+        // 3.将获取的数据保存下来
+        this.categoryData[this.currentIndex].categoryDetail[type] = res;
+        this.categoryData = { ...this.categoryData };
+      });
+    },
+    /**
+     * 事件响应相关的方法
+     */
+    selectItem(index) {
+      this._getSubcategories(index);
+    }
+  },
+  components: {
+    NavBar,
+    Scroll,
+    CategoryTabMenu,
+    CategoryGoodsInfo,
+    CategoryGoodsIcon
   }
 };
 </script>
 
 <style lang="stylus" scoped>
-.wrapper {
-  height: 500px;
-  // height calc(100vh - 105px)
-  background-color: #f00;
-  overflow-y: scroll;
+#nav-bar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #ff8198;
+
+  div {
+    font-size: 26px;
+    color: #fff;
+  }
 }
 
-.nav {
-  height: 50px;
-  background-color: #a2a2a2;
+.category-content {
+  position: relative;
+  display: flex;
+  height 100%
+  top: 44px;
+  right: 0;
+  left: 0;
+  bottom: 55px;
+  width: 100%;
+}
+
+#catgory-content-box {
+  width calc(100% - 100px)
+  position: absolute;
+  top 0
+  right 0
+  height: calc(100vh - 99px);
+  background-color: #ccc;
 }
 </style>

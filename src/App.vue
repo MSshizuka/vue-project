@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <keep-alive exclude="Detail">
+      <keep-alive exclude="Detail,DetailBottomBar">
         <router-view></router-view>
       </keep-alive>
       <div class="footer">
@@ -24,7 +24,7 @@ export default {
           value: "/" // value选中的值
         },
         {
-          label: "分类",
+          label: "商城",
           value: "/category",
           icon: "iconfont icon-fenlei"
         },
@@ -73,7 +73,7 @@ html, body, #app {
 
 .container {
   flex: 1;
-  overflow: scroll;
+  overflow: hidden;
   background-color: #fff;
 }
 

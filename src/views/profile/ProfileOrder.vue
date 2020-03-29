@@ -7,24 +7,24 @@
       </div>
       <ul class="order-nav">
         <li>
-          <span class="iconfont icon-shouye1"></span>
-          <div>个人主页</div>
+          <span class="iconfont icon-weibiaoti2fuzhi04"></span>
+          <div>待付款</div>
         </li>
         <li>
-          <span class="iconfont icon-zhibo1"></span>
-          <div>我的直播</div>
+          <span class="iconfont icon-daifahuo"></span>
+          <div>待发货</div>
         </li>
         <li>
-          <span class="iconfont icon-fav-1"></span>
-          <div>收藏</div>
+          <span class="iconfont icon-daishouhuofuben"></span>
+          <div>待收货</div>
         </li>
         <li>
-          <span class="iconfont icon-guanzhu2"></span>
-          <div>关注</div>
+          <span class="iconfont icon-pingjia"></span>
+          <div>评价</div>
         </li>
         <li>
-          <span class="iconfont icon-zuji"></span>
-          <div>足迹</div>
+          <span class="iconfont icon-tuikuanshouhou"></span>
+          <div>退款售后</div>
         </li>
       </ul>
     </div>

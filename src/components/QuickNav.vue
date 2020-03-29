@@ -107,7 +107,7 @@ export default {
   width: 35px;
   height: 40px;
   line-height: 18px;
-  font-size: 10px;
+  font-size: 12px;
   color: #fff;
   text-align: center;
   font-weight: 500;

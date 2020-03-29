@@ -5,7 +5,7 @@
         <i class="iconfont icon-kefu"></i>
         <span class="text">客服</span>
       </div>
-      <div>
+      <div @click="toShop">
         <i class="iconfont icon-dianpu"></i>
         <span class="text">店铺</span>
       </div>
@@ -23,14 +23,33 @@
 
 <script>
 	export default {
-		name: "DetailBottomBar",
+    name: "DetailBottomBar",
+    props: {
+      topImages: {
+        type: Array
+      }
+    },
     methods: {
+      toShop() {
+        this.$router.push('/404')
+      }, 
       addToCart() {
         // console.log('加入购物车');
+        if (this.topImages.length === 0) {
+          alert('抱歉，商品走丢了!');
+          this.$router.back();
+          return;
+        };
         this.$emit('addCart', 0)
       },
       payment() {
         // console.log('去付款，跳转到购物车页面');
+        // console.log(this.topImages.length);
+        if (this.topImages.length === 0) {
+          alert('抱歉，商品走丢了!');
+          this.$router.back();
+          return;
+        };
         this.$emit('payment', 1)
       }
     }

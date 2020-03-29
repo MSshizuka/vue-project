@@ -5,7 +5,16 @@
         <router-view></router-view>
       </keep-alive>
       <div class="footer">
-        <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler" v-show="isShow"></cube-tab-bar>
+        <cube-tab-bar v-model="selectedLabelDefault" :data="tabs" @change="changeHandler"></cube-tab-bar>
+      </div>
+    </div>
+    <div class="verify" v-show="isShow">
+      <div class="verify-container" v-show="isShow">
+        <div class="verify-title">确认将这{{this.$store.getters.count}}项删除吗?</div>
+        <div class="verify-content">
+          <span class="verfiy-cancel" @click="verifyCancel">我再想想</span>
+          <span class="verfiy-sure" @click="verifySure">确认</span>
+        </div>
       </div>
     </div>
   </div>
@@ -39,7 +48,7 @@ export default {
           icon: "iconfont icon-denglu-copy"
         }
       ],
-      isShow: true
+      isShow: false
     };
   },
   watch: {
@@ -54,8 +63,20 @@ export default {
   methods: {
     changeHandler(value) {
       this.$router.replace(value);
+    },
+    verifyCancel() {
+      this.isShow = false;
+    },
+    verifySure() {
+      this.$store.commit("deleteGoods");
+      this.isShow = false;
     }
   },
+  mounted() {
+    this.$bus.$on("sureDeleted", () => {
+      this.isShow = true;
+    });
+  }
 };
 </script>
 
@@ -63,7 +84,7 @@ export default {
 html, body, #app {
   width: 100%;
   height: 100%;
-  background-color #fff
+  background-color: #fff;
 }
 
 #app {
@@ -78,11 +99,11 @@ html, body, #app {
 }
 
 .footer {
-  position fixed
-  bottom 0  
-  width 100%
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   background: #f2f2f2;
-  background-color #fff
+  background-color: #fff;
 }
 
 .cube-tab {
@@ -95,5 +116,59 @@ html, body, #app {
 
 .cube-tab_active {
   color: #ff8198;
+}
+
+.verify {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 500;
+}
+
+.verify-container {
+  position: fixed;
+  width: 240px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.verify-title {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 18px;
+  line-height: 18px;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+}
+
+.verify-content {
+  display: flex;
+}
+
+.verify-content > span {
+  display: block;
+  flex: 1;
+  font-size: 20px;
+  padding: 10px 0;
+}
+
+.verify-content > .verfiy-cancel {
+  border-right: 1px solid #ccc;
+  color: #888;
+}
+
+.verify-content > .verfiy-sure {
+  color: #f36666;
 }
 </style>

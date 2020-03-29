@@ -40,6 +40,7 @@ export default {
   width 100px
   font-size 30px;  
   font-weight 600;
+  color #666
 }
 
 .cart-nav-right {

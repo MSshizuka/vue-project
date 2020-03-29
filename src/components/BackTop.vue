@@ -1,6 +1,6 @@
 <template>
   <div class="back-top">
-    <img src="@/assets/img/common/top.png" alt="">
+    <span class="iconfont icon-zhiding1"></span>
   </div>
 </template>
 
@@ -14,11 +14,17 @@ export default {
 .back-top {
   position fixed;
   right 10px;
-  bottom 60px;
-  img {
+  bottom 65px;
+  .icon-zhiding1 {
+    display block;
+    text-align center
     width 43px;
-    max-width 43px;
-    max-height 43px;
+    height  43px;
+    line-height 43px
+    background-color rgba(0,0,0,.6);
+    border-radius 50%;
+    color #fff;
+    font-size 24px;
   }
 }
 </style>

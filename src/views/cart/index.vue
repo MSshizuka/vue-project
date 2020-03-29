@@ -7,9 +7,10 @@
       </div>
     </scroll>
     <div v-else class="empty-cart">
-      <div>您的购物车居然是空的！</div>
+      <div>您的购物车空空如也！</div>
       <div>去买点什么吧~</div>
       <img class="tipImage" src="@/assets/img/cart/cart.jpg" alt />
+      <button @click="toIndex">去逛逛~</button>
     </div>
     <cart-bottom-bar />
   </div>
@@ -29,6 +30,11 @@ export default {
     CartList,
     CartBottomBar,
     Scroll
+  },
+  methods: {
+    toIndex() {
+      this.$router.replace('/');
+    }
   },
   mounted() {
     // console.log(this.$store.state);
@@ -71,6 +77,22 @@ export default {
     position relative;
     top 50px
     left 25px
+  }
+
+  button {
+    position absolute
+    display block;
+    bottom 180px;
+    padding 12px 25px
+    border-radius 5px
+    border 0px
+    font-size 18px
+    font-weight 500
+    left 50%
+    transform translateX(-50%)
+    outline none
+    color #fff
+    background-color #f69
   }
 
 }

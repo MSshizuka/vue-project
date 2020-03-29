@@ -15,10 +15,20 @@
         <span class="payment" @click="checkOut">结算{{this.$store.getters.number}}</span>
       </div>
       <div v-else>
-        <span class="clear-cart iconfont icon-shanchu"> 清理购物车</span>
+        <span class="clear-cart iconfont icon-shanchu">清理购物车</span>
         <span class="delete-cart" @click="deleteGoods">删除</span>
       </div>
     </div>
+
+    <!-- <div class="verify" v-show="isShow"> -->
+      <!-- <div class="verify-container" v-show="isShow">
+        <div class="verify-title">确认将这{{this.$store.getters.count}}项删除吗?</div>
+        <div class="verify-content">
+          <span class="verfiy-cancel" @click="verifyCancel">我再想想</span>
+          <span class="verfiy-sure" @click="verifySure">确认</span>
+        </div>
+      </div> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -28,7 +38,8 @@ export default {
   data() {
     return {
       isCheckedAll: true,
-      isDelete: true
+      isDelete: true,
+      isShow: false
     };
   },
   methods: {
@@ -44,15 +55,22 @@ export default {
       this.$store.commit("selectAll", { selectedAll: this.isCheckedAll });
     },
     deleteGoods() {
-      if (/\d+/.test(this.$store.getters.number)) { 
-        this.$store.commit('deleteGoods');
+      if (/\d+/.test(this.$store.getters.number)) {
+        this.isShow = true;
+        this.$bus.$emit("sureDeleted");
       } else {
-        alert('亲~！请选择商品！')
+        alert("亲~！请选择商品！");
       }
-      
-    }
+    },
+    // verifyCancel() {
+    //   this.isShow = false;
+    // },
+    // verifySure() {
+    //   this.$store.commit("deleteGoods");
+    //   this.isShow = false;
+    // }
   },
-  created(){
+  created() {
     this.selectAllClick();
   },
   mounted() {
@@ -71,7 +89,7 @@ export default {
   background-color: #f9f9f9;
   left: 0;
   right: 0;
-  bottom: 55px;
+  bottom: 52px;
   border: 1px solid #eee;
   border-right: 0;
   border-left: 0;
@@ -137,7 +155,7 @@ export default {
   position: absolute;
   display: block;
   height: 38px;
-  line-height: 38px!important;
+  line-height: 38px !important;
   right: 5px;
   border: 1px solid red;
   padding: 0 20px;
@@ -153,4 +171,58 @@ export default {
   right: -45px;
   font-size: 16px;
 }
+
+/* .verify {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -44px;
+  bottom: -55px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 5000;
+} */
+
+/* .verify-container {
+  position: fixed;
+  width: 240px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50000;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.verify-title {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 18px;
+  line-height: 18px;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+}
+
+.verify-content {
+  display: flex;
+}
+
+.verify-content > span {
+  display: block;
+  flex: 1;
+  font-size: 20px;
+  padding: 10px 0;
+}
+
+.verify-content > .verfiy-cancel {
+  border-right: 1px solid #ccc;
+  color: #888;
+}
+
+.verify-content > .verfiy-sure {
+  color: #f36666;
+} */
 </style>

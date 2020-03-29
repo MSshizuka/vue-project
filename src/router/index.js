@@ -35,5 +35,10 @@ export default new Router({
       name: 'detail',
       component: () => import('@/views/detail/index.vue')
     },
+    {
+      path: '/404',
+      name: 'Error',
+      component: () => import('@/views/error/index.vue')
+    },
   ],
 });

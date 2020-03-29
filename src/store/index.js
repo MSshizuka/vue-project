@@ -19,6 +19,11 @@ export default new Vuex.Store({
       if (length === 0) return;
       return `(${length})`;
     },
+    count(state) {
+      let length = state.cartList.filter(item => item.isSure === true).length;
+      if (length === 0) return;
+      return length;
+    },
     totalPrice(state) {
       let ary = state.cartList.filter(item => item.isSure === true);
       if (ary.length === 0) {
@@ -52,7 +57,7 @@ export default new Vuex.Store({
     },
     makeSureSelected (state, payload) {
       state.cartList.find(item => item.iid === payload.obj.iid).isSure = !payload.obj.isSure;
-      console.log(this);
+      // console.log(this);
       this._mutations.defaultCheckAll[0](state);
       // if (state.cartList.every(item => item.isSure === true)) {
       //   state.isCheckedAll = true;

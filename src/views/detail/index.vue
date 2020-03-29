@@ -1,7 +1,13 @@
 <template>
   <div class="detail">
     <detail-nav @titleClick="titleClick" ref="nav" />
-    <scroll class="wrapper" ref="scroll" :probeType="3" @scroll="contentScroll" :data="[...detailInfo]">
+    <scroll
+      class="wrapper"
+      ref="scroll"
+      :probeType="3"
+      @scroll="contentScroll"
+      :data="[...detailInfo]"
+    >
       <div class="content">
         <div class="slide">
           <cube-slide :data="topImages">
@@ -18,7 +24,8 @@
         <detail-recommend-info ref="recommend" :recommendList="recommendList" />
       </div>
     </scroll>
-    <detail-bottom-bar @addCart="addToCart" @payment="payment" />
+    <detail-bottom-bar @addCart="addToCart" @payment="payment" :topImages="topImages" />
+    <quick-nav ref="quickNav" @isToggle="isToggle" />
     <back-top @click.native="backClick" v-if="isShowBackTop" />
     <detail-sure-plate
       :goodsInfo="obj"
@@ -31,8 +38,8 @@
 </template>
 
 <script>
-
 import Scroll from "@/components/Scroll";
+import QuickNav from "@/components/QuickNav";
 import BackTop from "@/components/BackTop";
 
 import DetailNav from "@/views/detail/DetailNav";
@@ -70,6 +77,7 @@ export default {
       detailImageLoad: null,
       titlesTopY: [],
       getTitlesTopY: null,
+      isUnfold: false,
       currentTitle: 0,
       isShowBackTop: false,
       isShowSelectedPlate: false,
@@ -87,17 +95,18 @@ export default {
   },
   // mixins: [backTopMixin],
   methods: {
+    isToggle(attr) {
+      // console.log(attr);
+      
+      this.isUnfold = attr.attr;
+    },
     addCount(num) {
       this.obj.count += 1;
     },
     minusCount(num) {
       this.obj.count -= 1;
     },
-    canclePlate(count) {
-      console.log("---------------");
-      if (count) {
-        
-      }
+    canclePlate() {
       this.isShowSelectedPlate = false;
       this.index = -1;
     },
@@ -105,9 +114,46 @@ export default {
       this.$refs.scroll.scrollTo(0, 0);
     },
     contentScroll(position) {
-      Math.abs(position.y) > 1400
-        ? (this.isShowBackTop = true)
-        : (this.isShowBackTop = false);
+      if (Math.abs(position.y) > 2000) {
+        this.isShowBackTop = true;
+        // console.log(this.$refs.quickNav.$el.lastElementChild);
+        // console.log( this.$refs.quickNav.$el.children);
+        const ary = [...this.$refs.quickNav.$el.children].reverse();
+
+        if (this.isUnfold) {
+          //展开
+          if (parseFloat(ary[0].style.bottom) === 2) {
+            ary.forEach((item, index) => {
+              // console.log(index, item.style.bottom);
+              item.style.bottom = 2 + (index + 1) * 1.35 + "rem";
+              // debugger
+            });
+          }
+
+          if (parseFloat(ary[0].style.bottom) === 3.35) return;
+        } else {
+          ary[0].style.bottom = "3.35rem";
+        }
+      } else {
+        this.isShowBackTop = false;
+        const ary = [...this.$refs.quickNav.$el.children].reverse();
+        // console.log(this.isUnfold);
+        
+        if (this.isUnfold) {
+          // console.log(parseFloat(ary[0].style.bottom))
+          
+          if (parseFloat(ary[0].style.bottom) === 3.35) {
+            ary.forEach((item, index) => {
+              // console.log(index, item.style.bottom);
+              item.style.bottom = 2 + index * 1.35 + "rem";
+              // debugger
+            });
+          };
+          if (parseFloat(ary[0].style.bottom) === 2) return;
+        } else {
+          ary[0].style.bottom = '2rem';
+        }
+      }
 
       // console.log(position.y);
       if (-position.y >= this.titlesTopY[3]) {
@@ -142,43 +188,54 @@ export default {
 
       this.isShowSelectedPlate = true;
       // console.log("立即购买", index);
+    },
+    goBack() {
+      // console.log(this.$parent);
+      // this.$parent.$destroy();
+      this.$router.back();
+    },
+    toCart() {
+      this.$router.push("/cart");
     }
   },
   created() {
     this.iid = this.$route.params.iid;
+    getDetailData(this.iid)
+      .then(res => {
+        const data = res.result;
+        // console.log(data);
 
-    getDetailData(this.iid).then(res => {
-      const data = res.result;
-      // console.log(data);
+        this.topImages = data.itemInfo.topImages;
 
-      this.topImages = data.itemInfo.topImages;
+        this.goods = new Goods(
+          data.itemInfo,
+          data.columns,
+          data.shopInfo.services
+        );
 
-      this.goods = new Goods(
-        data.itemInfo,
-        data.columns,
-        data.shopInfo.services
-      );
+        this.shop = new Shop(data.shopInfo);
 
-      this.shop = new Shop(data.shopInfo);
+        this.detailInfo = data.detailInfo;
 
-      this.detailInfo = data.detailInfo;
+        this.paramInfo = new GoodsParam(
+          data.itemParams.info,
+          data.itemParams.rule
+        );
 
-      this.paramInfo = new GoodsParam(
-        data.itemParams.info,
-        data.itemParams.rule
-      );
+        if (data.rate.list) {
+          this.commentInfo = data.rate.list[0];
+        }
 
-      if (data.rate.list) {
-        this.commentInfo = data.rate.list[0];
-      }
-
-      this.obj.iid = this.iid;
-      this.obj.imgURL = this.topImages[0];
-      this.obj.title = this.goods.title;
-      this.obj.desc = this.goods.desc;
-      this.obj.newPrice = this.goods.nowPrice;
-      this.obj.count = 1;
-    });
+        this.obj.iid = this.iid;
+        this.obj.imgURL = this.topImages[0];
+        this.obj.title = this.goods.title;
+        this.obj.desc = this.goods.desc;
+        this.obj.newPrice = this.goods.nowPrice;
+        this.obj.count = 1;
+      })
+      .catch(err => {
+        console.log("ng", err);
+      });
 
     getRecommend().then((res, error) => {
       if (error) return;
@@ -218,6 +275,7 @@ export default {
     DetailRecommendInfo,
     DetailBottomBar,
     BackTop,
+    QuickNav,
     DetailSurePlate
   }
 };

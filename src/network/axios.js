@@ -32,6 +32,8 @@ class AjaxRequest {
       // }
       return response.data;
     }, (err) => {
+      console.log('请求出错了！！');
+      
       if (err && err.response) {
         switch (err.response.status) {
           case 400:

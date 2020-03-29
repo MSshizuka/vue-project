@@ -1,9 +1,10 @@
 <template>
   <nav-bar class="nav-bar">
-    <span slot="left" class="iconfont icon-fanhui1" @click="back"></span>
+    <span slot="left" class="go-back iconfont icon-fanhui1" @click="goBack"></span>
     <a slot="center" class="titles">
       <div v-for="(item, index) in titles" :key="index" :class="currentIndex === index ? 'active' : null" @click="titleClick(index)">{{item}}</div>
     </a>
+    <span slot="right" class="to-cart iconfont icon-gouwuche2" @click="toCart"></span>
   </nav-bar>
 </template>
 
@@ -25,10 +26,11 @@ export default {
       // console.log(this.$el);
       this.$emit('titleClick', index);
     },
-    back() {
-      // console.log(this.$parent);
-      // this.$parent.$destroy();
+    goBack() {
       this.$router.back();
+    },
+    toCart() {
+      this.$router.push('/cart')
     }
   },
   components: {
@@ -51,11 +53,16 @@ export default {
   color #aaa
 }
 
-.iconfont {
-  color #aaa
-}
-
 .active {
   color #ff5777
+}
+
+.icon-fanhui1 {
+  font-size 20px
+  color #666
+}
+
+.icon-gouwuche2 {
+  color red
 }
 </style>

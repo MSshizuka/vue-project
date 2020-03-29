@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="icon-show-box">
     <div class="item" v-for="(item, index) in subcategories.list" :key="index">
       <a :href="item.link">
-        <img class="item-img" v-lazy="item.image" alt />
-        <div class="item-text">{{item.title}}</div>
+      <img class="item-img" v-lazy="item.image" alt />
+      <div class="item-text">{{item.title}}</div>
       </a>
     </div>
   </div>
@@ -19,9 +19,30 @@ export default {
         return [];
       }
     }
-  },
-  mounted() {
-    console.log(this.subcategories);
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+.icon-show-box {
+  padding 20px 8px
+  display flex
+  flex-wrap wrap
+  .item {
+    width 86px
+    text-align center
+    font-size 12px
+    .item-img {
+      width 80%
+    }
+    .item-text {
+      margin-top 15px
+      color #666
+    }
+  }
+
+  .item:nth-child(n+4) {
+    margin-top 15px
+  }
+}
+</style>

@@ -1,7 +1,15 @@
 <template>
   <div class="home">
     <home-nav />
-    <scroll ref="scroll" @scroll="scroll" :probe-type="2" :pullUpLoad="true" @pullingUp="loadMore" id="home-scroll">
+    <scroll
+      ref="scroll"
+      @scroll="scroll"
+      :probe-type="2"
+      :pullUpLoad="true"
+      @pullingUp="loadMore"
+      id="home-scroll"
+      :data="goods[currentType].list"
+    >
       <div class="home-content">
         <div class="slide">
           <cube-slide ref="slide" :data="banner">
@@ -162,5 +170,4 @@ img {
   height: calc(100vh - 99px);
   margin-top: 44px;
 }
-
 </style>

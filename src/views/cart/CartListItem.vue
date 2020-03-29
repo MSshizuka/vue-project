@@ -101,6 +101,7 @@ export default {
   p:first-child {
     font-size: 24px;
     font-weight: 600;
+    color #444
   }
 
   p:nth-child(2) {

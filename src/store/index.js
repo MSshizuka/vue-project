@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 
 import home from './modules/home';
 
+import { login, validate } from '@/network/user.js'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -11,7 +13,8 @@ export default new Vuex.Store({
   },
   state: {
     cartList: [],
-    isCheckedAll: true
+    isCheckedAll: true,
+    username: ''
   },
   getters: {
     number(state) {
@@ -55,7 +58,7 @@ export default new Vuex.Store({
         }
       }
     },
-    makeSureSelected (state, payload) {
+    makeSureSelected(state, payload) {
       state.cartList.find(item => item.iid === payload.obj.iid).isSure = !payload.obj.isSure;
       // console.log(this);
       this._mutations.defaultCheckAll[0](state);
@@ -81,14 +84,14 @@ export default new Vuex.Store({
       if (state.cartList.length === 0) {
         state.cartList.push(payload);
       } else {
-      //   state.cartList.forEach(item => {
-      //     if (item.iid === payload.iid) {
-      //       item.count += payload.count;
-      //     } else {
-      //       state.cartList.push(payload);
-      //     }
-      //   })
-      // }
+        //   state.cartList.forEach(item => {
+        //     if (item.iid === payload.iid) {
+        //       item.count += payload.count;
+        //     } else {
+        //       state.cartList.push(payload);
+        //     }
+        //   })
+        // }
         let isHad = state.cartList.find(item => item.iid === payload.iid);
         if (isHad) {
           isHad.count += payload.count;
@@ -96,7 +99,31 @@ export default new Vuex.Store({
           state.cartList.push(payload);
         }
       }
+    },
+    setUsername(state, payload) {
+      state.username = payload;
     }
   },
+  actions: {
+    async login({ commit }, userName) {
+      const result = await login(userName);
+      if (result.token) {
+        localStorage.setItem('token', result.token);
+        commit('setUsername', result.username);
+        // this.$router.replace('/profile')
+      } else {
+        return Promise.reject('store/index-114line:' + result);
+      }
 
+    },
+    async validate({ commit }) {
+      const result = await validate();
+      if (result.code === 1) {
+        return false;
+      };
+      commit('setUsername', result.username);
+      localStorage.setItem('token', result.token);
+      return true;
+    }
+  },
 });

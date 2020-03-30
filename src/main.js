@@ -7,6 +7,41 @@ import 'amfe-flexible';// px2rem
 
 Vue.prototype.$bus = new Vue();
  
+
+const whiteList = ['/','/category']
+router.beforeEach(async (to, from, next) => {
+  console.log('-------------');
+  
+  if (whiteList.includes(to.path)) {
+    return next();
+  };
+
+  //校验当前用户是否登录
+  const isLogin = await store.dispatch('validate');
+  if (isLogin) {
+    if (to.name === 'login') {
+      next('/profile');
+    } else {
+      next();
+    };
+  } else {
+    const flag = to.matched.some(item => item.meta.needLogin);
+
+    // if (from.path === '/login' && (to.path === '/cart' || to.path === '/profile')) {
+    //   return;
+    // };
+    if (flag) {
+      if (to.name !== 'login') {
+        next('/login');
+      }
+      // return false;
+    } else {
+      next();
+    }
+  }
+})
+
+
 // with options
 Vue.use(VueLazyload, {
   perload: 1.3,

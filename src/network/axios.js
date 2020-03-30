@@ -4,9 +4,23 @@ import { Toast } from 'cube-ui';
 class AjaxRequest {
   constructor() {
     // this.baseURL = 'http://123.207.32.32:8000/api/h3';
-    // this.baseURL = 'http://localhost:8008';
-    this.baseURL = 'http://101.132.131.177:8008';
-    // this.timeout = 5000;
+    this.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8008' : '/';
+    // this.baseURL = 'http://101.132.131.177:8008';
+    this.timeout = 5000;
+    // axios.defaults.withCredentials = true;//=>允许跨域携带cookie请求
+    // axios.defaults.transformRequest = data => {
+    //     let str = ``;
+    //     if (data && typeof data === 'object') {
+    //         for (let attr in data) {
+    //             if (data.hasOwnProperty(attr)) {
+    //                 str += `${attr}=${data[attr]}&`;
+    //             }
+    //         }
+    //     }
+    //     return str.substring(0, str.length - 1);
+    // };
+    // axios.defaults.headers['Content-Type'] = 'x-www-form-urlencoded';
+    // axios.interceptors.response.use(result => result.data);
     // this.toast = Toast.$create({
     //   txt: 'loading...',
     //   time: 0,
@@ -17,6 +31,7 @@ class AjaxRequest {
 
   setInterceptor(instance, url) {
     instance.interceptors.request.use((config) => {
+      config.headers.Authorization = localStorage.getItem('token');
       // if (Object.keys(this.queue).length === 0) {
       //   this.toast.show();
       // }
@@ -31,9 +46,7 @@ class AjaxRequest {
       //   this.toast.hide();
       // }
       return response.data;
-    }, (err) => {
-      console.log('请求出错了！！');
-      
+    }, (err) => {      
       if (err && err.response) {
         switch (err.response.status) {
           case 400:
@@ -54,9 +67,9 @@ class AjaxRequest {
   request(options) {
     const instance = axios.create();
     const config = {
-      ...options,
       baseURL: this.baseURL,
       timeout: this.timeout,
+      ...options,
     };
     this.setInterceptor(instance, options.url);
     return instance(config);

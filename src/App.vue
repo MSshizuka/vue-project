@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     changeHandler(value) {
-      this.$router.replace(value);
+      this.$router.push(value);
     },
     verifyCancel() {
       this.isShow = false;

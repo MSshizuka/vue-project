@@ -6,7 +6,8 @@
           <img src="@/assets/img/common/head-portrait.jpg" alt class="head-portrait" />
         </a>
         <div class="nickname">
-          <div>优质小仙女咿呀咿呀哟</div>
+          <!-- <div>优质小仙女咿呀咿呀哟</div> -->
+          <div>{{this.$store.state.username}}</div>
           <span class="iconfont icon-xunzhang">分析勋章</span>
           <span class="iconfont icon-zuanshi1">成就勋章</span>
         </div>

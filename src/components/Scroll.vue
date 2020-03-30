@@ -60,7 +60,7 @@ export default {
     finishPullUp() {
       this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
     },
-    scrollTo(x, y, time) {
+    scrollTo(x, y, time = 300) {
       this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time);
     }
   },

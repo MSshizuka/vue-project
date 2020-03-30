@@ -24,11 +24,13 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: loadable(() => import('@/views/cart/index.vue')),
+      meta: { needLogin: true }
     },
     {
       path: '/profile',
       name: 'profile',
       component: loadable(() => import('@/views/profile/index.vue')),
+      meta: { needLogin: true }
     },
     {
       path: '/detail/:iid',
@@ -39,6 +41,11 @@ export default new Router({
       path: '/404',
       name: 'Error',
       component: () => import('@/views/error/index.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login/index.vue')
     },
   ],
 });

@@ -13,7 +13,7 @@ export const login = ({ username}) => {
 export const validate = () => {
   return AjaxRequest.request({
     url: '/validate',
-    method: 'get'
+    method: 'get',
   })
 }
 

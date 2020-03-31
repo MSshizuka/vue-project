@@ -4,7 +4,7 @@
     <h1 class="login-title">登录</h1>
     <div class="wx-button">
       <span class="iconfont icon-weixin2"></span>
-      <span>微信登陆</span>
+      <span @click="itemClickWX">微信登陆</span>
     </div>
     <div class="login-other">
       <h3 class="login-other-title">其他登录方式</h3>
@@ -22,7 +22,7 @@
           <p>账号登录</p>
         </li>
       </ul>
-      <div class="register-entry">新人注册 ></div>
+      <div class="register-entry" @click="register">新人注册 ></div>
     </div>
   </div>
 </template>
@@ -34,15 +34,21 @@ export default {
     backUp() {
       this.$router.back();
     },
-    itemClickQQ() {
+    itemClickWX() {
       this.$emit('loginWay', 0)
     },
-    itemClickPhone() {
+    itemClickQQ() {
       this.$emit('loginWay', 1)
     },
-    itemClickPws() {
+    itemClickPhone() {
       this.$emit('loginWay', 2)
     },
+    itemClickPws() {
+      this.$emit('loginWay', 3)
+    },
+    register() {
+      this.$router.push('/register')
+    }
   }
 };
 </script>

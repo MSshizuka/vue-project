@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import home from './modules/home';
+import register from './modules/register';
 
 import { login, validate } from '@/network/user.js'
 
@@ -10,6 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     home,
+    register
   },
   state: {
     cartList: [],
@@ -114,16 +116,19 @@ export default new Vuex.Store({
       } else {
         return Promise.reject('store/index-114line:' + result);
       }
-
     },
     async validate({ commit }) {
       const result = await validate();
-      if (result.code === 1) {
+      if (result.body) {
+        if (result.code === 1) {
+          return false;
+        };
+        commit('setUsername', result.body[0].username);
+        localStorage.setItem('token', result.body[0].token);
+        return true;
+      } else {
         return false;
-      };
-      commit('setUsername', result.username);
-      localStorage.setItem('token', result.token);
-      return true;
+      }
     }
   },
 });

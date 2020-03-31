@@ -2,7 +2,7 @@
   <div class="profile-header">
     <div>
       <div class="personal-info">
-        <a href="javascript:;">
+        <a href="javascript:;" @click="showPersonalInformation">
           <img src="@/assets/img/common/head-portrait.jpg" alt class="head-portrait" />
         </a>
         <div class="nickname">
@@ -20,7 +20,7 @@
       </div>
     </div>
     <ul class="personal-nav">
-      <li>
+      <li @click="showPersonalInformation">
         <span class="iconfont icon-shouye1"></span>
         <div>个人主页</div>
       </li>
@@ -46,7 +46,12 @@
 
 <script>
 export default {
-  name: "ProfileHeader"
+  name: "ProfileHeader",
+  methods: {
+    showPersonalInformation() {
+      this.$emit('showPersonalInformation')
+    }
+  }
 };
 </script>
 <style>

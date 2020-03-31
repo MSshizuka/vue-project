@@ -13,19 +13,19 @@
     <div class="personal-detail">
       <div>
         <h3>用户名</h3>
-        <input type="text" :value="this.$store.state.username" />
+        <input type="text" :value="this.$store.state.userData[0].username" />
       </div>
       <div>
         <h3>邮箱</h3>
-        <input type="text" value="1197940254@qq.com" />
+        <input type="text" :value="this.$store.state.userData[0].usermail" />
       </div>
       <div>
         <h3>手机号</h3>
-        <input type="text" value="13372172741" />
+        <input type="text" value="" />
       </div>
       <div>
         <h3>所在地</h3>
-        <input type="text" value="江苏省 南京市" />
+        <input type="text" value="" />
       </div>
     </div>
     <div class="logout" @click="logout">退出</div>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { Toast } from "cube-ui";
 import NavBar from "@/components/NavBar";
 export default {
   name: "ProfilePersonalInfo",
@@ -42,7 +43,14 @@ export default {
     },
     logout() {
       localStorage.removeItem('token');
+      localStorage.removeItem('userData');
       this.$emit('hidePersonalInformation')
+      this.toast = Toast.$create({
+        txt: "退出成功！",
+        type: "txt",
+        time: 1000
+      });
+      this.toast.show();
       this.$router.replace('/')
     }
   },

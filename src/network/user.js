@@ -10,10 +10,15 @@ export const login = ({ username}) => {
   })
 }
 
-export const validate = () => {
+export const validate = (userdata) => {
+  console.log('user.js14:',userdata);
+  
   return AjaxRequest.request({
     url: '/validate',
-    method: 'get',
+    method: 'POST',
+    data: {
+      userdata
+    }
   })
 }
 

@@ -7,19 +7,19 @@
         <input type="text" class="base-field-core" placeholder="昵称" v-model="username" @focus="focus" @blur="blur"/>
       </div>
       <div class="tips" ref="nameInfo" :class="currentNameIndex !== 0 ? 'hide' : ''">
-        <input type="text" class="tips-item username" disabled value="格式应为2~10位 支持数字字母下划线和汉字" />
+        <input type="text" class="tips-item username" disabled :value="errorMessage" />
       </div>
       <div class="base-filed">
         <input type="text" class="base-field-core" placeholder="邮箱" v-model="usermail" @focus="focus" @blur="blur" />
       </div>
       <div class="tips" ref="mailInfo" :class="currentMailIndex !== 0 ? 'hide' : ''">
-        <input type="text" class="tips-item usermail" disabled value="格式不正确 应类似xxx@xx.xxx" />
+        <input type="text" class="tips-item usermail" disabled value="格式不正确 应为xxx@xx.xxx类似格式" />
       </div>
       <div class="base-filed">
         <input type="password" class="base-field-core" placeholder="密码" v-model="userpws" @focus="focus" @blur="blur"/>
       </div>
-      <div class="tips hide" ref="pwsInfo">
-        <input type="text" class="tips-item userpws" disabled value="密码应在6~20位之间 至少包含2种不同格式" />
+      <div class="tips" ref="pwsInfo" :class="currentPwsIndex !== 0 ? 'hide' : ''">
+        <input type="text" class="tips-item userpws" disabled value="8~20位 支持数字字母下划线或点" />
       </div>
       <div class="tips" ref="totalInfo" :class="isShow ? '' : 'hide'">
         <input type="text" class="tips-item total-info" disabled value="请完成填写" />
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import {registerCheck} from '@/network/register'
 export default {
   name: "Register",
   data() {
@@ -39,6 +40,8 @@ export default {
       userpws: "",
       currentNameIndex: -1,
       currentMailIndex: -1,
+      currentPwsIndex: -1,
+      errorMessage: '',
       isShow: false
     };
   },
@@ -58,30 +61,52 @@ export default {
         this.currentNameIndex = -1;
       } else if (name === '邮箱') {
         this.currentMailIndex = -1;
-      }
+      } else if (name === '密码') {
+        this.currentPwsIndex = -1;
+      };
+      this.isShow = false;
     },
-    blur(e) {
+    async blur(e) {
       const name = e.target.placeholder;
       if (name === '昵称') {
-        console.log(e.target.value);
+        console.log(1);
+        
         if (/^[\w\u4E00-\u9FA5]{2,10}$/.test(e.target.value)) {
-          this.currentNameIndex = -1;
+          let result = await registerCheck(this.username);
+          if (result.code === 1) {
+            this.errorMessage = result.message;
+            this.currentNameIndex = 0;
+          } else {
+            // this.errorMessage = '格式应为2~10位 支持数字字母下划线和汉字';
+            this.currentNameIndex = -1;
+          }
         } else {
+          this.errorMessage = '格式应为2~10位 支持数字字母下划线和汉字';
           this.currentNameIndex = 0;
         }
       } else if (name === '邮箱') {
-        if (/^\w+@\w+(.\w+)+$/.test(e.target.value)){
+        if (/^\w+@\w+(.\w+)?(.com|.org|.net|.edu|.cn|.us|.uk)$/.test(e.target.value)){
           this.currentMailIndex = -1;
         } else {
           this.currentMailIndex = 0;
         }
       } else if (name === '密码') {
-        
+        if (/^[\w.]{8,20}$/.test(e.target.value)){
+          this.currentPwsIndex = -1;
+        } else {
+          this.currentPwsIndex = 0;
+        }
       }
       
     },
-    register() {
-      if (this.username && this.usermail && this.userpws) {
+    async register() {
+      if (this.username && this.usermail && this.userpws && this.currentNameIndex !== 0 && this.currentMailIndex !== 0 && this.currentPwsIndex !== 0 && this.isShow === false) {
+        let result = await registerCheck(this.username);
+          if (result.code === 1) {
+            this.errorMessage = result.message;
+            this.currentNameIndex = 0;
+            return;
+          };
         this.$store.dispatch("register/register", 
         {
           username: this.username,

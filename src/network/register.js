@@ -11,3 +11,13 @@ export const register = (payload) => {
     }
   })
 }
+
+export const registerCheck = (payload) => {
+  return AjaxRequest.request({
+    url: '/register/check',
+    methods: 'get',
+    params: {
+      payload
+    }
+  })
+}

@@ -16,8 +16,19 @@ router.beforeEach(async (to, from, next) => {
     return next();
   };
 
-  //校验当前用户是否登录
-  const isLogin = await store.dispatch('validate');
+  //校验当前用户是否过期
+  let obj = {};
+  if (!store.state.userData) {
+    store.state.userData = JSON.parse(localStorage.getItem('userData'));
+    store.state.userData ? obj =  store.state.userData[0] : null;
+  } else {
+    obj = store.state.userData[0]
+  };
+  
+  // console.log(store.state.userData[0]);
+  
+  const isLogin = await store.dispatch('validate', obj);
+  debugger
   if (isLogin) {
     if (to.name === 'login') {
       next('/profile');

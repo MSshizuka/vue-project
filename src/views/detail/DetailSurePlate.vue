@@ -92,20 +92,21 @@ export default {
       } else {
         this.toast = Toast.$create({
           txt: "添加到购物车成功✔",
-          time: 0
+          type: "txt",
+          time: 1000
         });
         this.toast.show();
-        let timer = setTimeout(() => {
-          clearInterval(timer);
-          this.toast.hide();
-          setTimeout(() => {
-            this.toast = Toast.$create({
-              txt: "loading...",
-              time: 0
-            });
-          }, 500);
-          // console.log(this.toast);
-        }, 1000);
+        // let timer = setTimeout(() => {
+        //   clearInterval(timer);
+        //   this.toast.hide();
+        //   setTimeout(() => {
+        //     this.toast = Toast.$create({
+        //       txt: "loading...",
+        //       time: 0
+        //     });
+        //   }, 500);
+        //   // console.log(this.toast);
+        // }, 1000);
         this.$emit("canclePlate", this.goodsInfo.count);
         this.$store.commit("addToCart", obj);
       }

@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { Toast } from "cube-ui";
 export default {
   name: "App",
   data() {
@@ -69,6 +70,12 @@ export default {
     },
     verifySure() {
       this.$store.commit("deleteGoods");
+      this.toast = Toast.$create({
+        txt:"删除成功!",
+        type: "txt",
+        time : 1000
+      });
+      this.toast.show();
       this.isShow = false;
     }
   },
@@ -76,7 +83,7 @@ export default {
     this.$bus.$on("sureDeleted", () => {
       this.isShow = true;
     });
-  }
+  },
 };
 </script>
 

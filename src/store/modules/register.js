@@ -6,11 +6,13 @@ export default {
 
   },
   actions: {// 发网络请求的
-    async register({commit},payload) {
+    async register({commit}, payload) {
       const result = await register(payload);
+      console.log(result);
       
-      if (result.body.token) {
-        localStorage.setItem('token', result.body.token);
+      if (result.token) {
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('userData', JSON.stringify(result.body));
         commit('setUser', result.body);
       } else {
         return new Promise((resolve, reject) => reject(result));
@@ -19,7 +21,7 @@ export default {
   },
   mutations: {// 同步状态的
     setUser(state, payload) {     
-      this.state.username = payload.username
+      this.state.userData = [payload]
     }
   },
 };

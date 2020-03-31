@@ -16,7 +16,8 @@ export default new Vuex.Store({
   state: {
     cartList: [],
     isCheckedAll: true,
-    username: ''
+    username: '',
+    userData: null
   },
   getters: {
     number(state) {
@@ -102,12 +103,12 @@ export default new Vuex.Store({
         }
       }
     },
-    setUsername(state, payload) {
-      state.username = payload;
+    setUser(state, payload) {     
+      state.userData = payload
     }
   },
   actions: {
-    async login({ commit }, userName) {
+    async login({ commit }, payload) {
       const result = await login(userName);
       if (result.token) {
         localStorage.setItem('token', result.token);
@@ -117,17 +118,17 @@ export default new Vuex.Store({
         return Promise.reject('store/index-114line:' + result);
       }
     },
-    async validate({ commit }) {
-      const result = await validate();
-      if (result.body) {
-        if (result.code === 1) {
-          return false;
-        };
-        commit('setUsername', result.body[0].username);
-        localStorage.setItem('token', result.body[0].token);
+    
+    async validate({ commit }, payload) {
+      const result = await validate(payload);
+
+      if (result.code === 0) {
+        commit('setUser', result.data);
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('userData', JSON.stringify(result.data));
         return true;
       } else {
-        return false;
+        return false
       }
     }
   },

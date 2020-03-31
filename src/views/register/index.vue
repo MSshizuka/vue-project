@@ -75,6 +75,8 @@ export default {
         } else {
           this.currentMailIndex = 0;
         }
+      } else if (name === '密码') {
+        
       }
       
     },

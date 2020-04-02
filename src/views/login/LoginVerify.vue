@@ -12,6 +12,7 @@
             id="filed_uname"
             class="base-field-core"
             :placeholder="loginData.loginBody"
+            ref="username"
           />
         </div>
         <div class="base-filed">
@@ -20,12 +21,13 @@
             id="filed_pws"
             class="base-field-core"
             :placeholder="loginData.loginVerify"
+            ref="userpws"
           />
           <span v-if="loginData.loginVerify==='验证码'">获取验证码</span>
         </div>
       </div>
-      <div class="login-button">
-        <span>登录</span>
+      <div class="login-button" @click="login">
+        <span >登录</span>
       </div>
       <p>
         <a href="javascript:;">忘记密码</a>
@@ -35,6 +37,8 @@
 </template>
 
 <script>
+import { login } from "@/network/user.js";
+import { Toast } from "cube-ui";
 export default {
   name: "LoginVerify",
   props: {
@@ -45,6 +49,30 @@ export default {
   methods: {
     backUp() {
       this.$emit("loginWay", -1);
+    },
+    login() {
+      const username = this.$refs.username.value;
+      const userpws = this.$refs.userpws.value;
+      this.$store
+        .dispatch("login", { username, userpws })
+        .then(res => {
+          this.toast = Toast.$create({
+            txt:"登陆成功",
+            type:"txt",
+            time: 1000
+          });
+          this.toast.show();
+          this.backUp();
+          this.$router.replace('/');
+        })
+        .catch(rea => {
+          this.toast = Toast.$create({
+            txt:"用户名或密码不正确",
+            type:"txt",
+            time: 1000
+          });
+          this.toast.show();
+        });
     }
   }
 };

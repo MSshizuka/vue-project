@@ -1,11 +1,13 @@
 import AjaxRequest from '@/network/axios';
 
-export const login = ({ username}) => {  
+export const login = (userdata) => {  
+  console.log("user.js4:",userdata);
+  
   return AjaxRequest.request({
     url: '/login',
     method: 'POST',
     data: {
-      username,
+      userdata,
     }
   })
 }

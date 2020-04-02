@@ -53,6 +53,7 @@ export default {
       this.toast.show();
       storage();
       this.$store.commit('init');
+      this.backUp();
       this.$router.replace('/');
     }
   },

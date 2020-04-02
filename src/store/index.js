@@ -113,14 +113,19 @@ export default new Vuex.Store({
   },
   actions: {
     async login({ commit }, payload) {
-      const result = await login(userName);
+      const result = await login(payload);
       if (result.token) {
+        commit('setUser', result.data);
         localStorage.setItem('token', result.token);
-        commit('setUsername', result.username);
-        // this.$router.replace('/profile')
-      } else {
-        return Promise.reject('store/index-114line:' + result);
-      }
+        localStorage.setItem('userData', JSON.stringify(result.data));
+      };
+      return new Promise((resolve, reject) => {
+        if (result.token) {
+          resolve(result.code);
+        } else {
+          reject(result.code);
+        }
+      });
     },
     
     async validate({ commit }, payload) {

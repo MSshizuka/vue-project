@@ -4,19 +4,40 @@
     <h1 class="register-title">注册</h1>
     <div class="account-grounp">
       <div class="base-filed">
-        <input type="text" class="base-field-core" placeholder="昵称" v-model="username" @focus="focus" @blur="blur"/>
+        <input
+          type="text"
+          class="base-field-core"
+          placeholder="昵称"
+          v-model="username"
+          @focus="focus"
+          @blur="blur"
+        />
       </div>
       <div class="tips" ref="nameInfo" :class="currentNameIndex !== 0 ? 'hide' : ''">
         <input type="text" class="tips-item username" disabled :value="errorNameMessage" />
       </div>
       <div class="base-filed">
-        <input type="text" class="base-field-core" placeholder="邮箱" v-model="usermail" @focus="focus" @blur="blur" />
+        <input
+          type="text"
+          class="base-field-core"
+          placeholder="邮箱"
+          v-model="usermail"
+          @focus="focus"
+          @blur="blur"
+        />
       </div>
       <div class="tips" ref="mailInfo" :class="currentMailIndex !== 0 ? 'hide' : ''">
         <input type="text" class="tips-item usermail" disabled :value="errorMailMessage" />
       </div>
       <div class="base-filed">
-        <input type="password" class="base-field-core" placeholder="密码" v-model="userpws" @focus="focus" @blur="blur"/>
+        <input
+          type="password"
+          class="base-field-core"
+          placeholder="密码"
+          v-model="userpws"
+          @focus="focus"
+          @blur="blur"
+        />
       </div>
       <div class="tips" ref="pwsInfo" :class="currentPwsIndex !== 0 ? 'hide' : ''">
         <input type="text" class="tips-item userpws" disabled value="8~20位 支持数字字母下划线或点" />
@@ -30,8 +51,8 @@
 </template>
 
 <script>
-import crypto from 'crypto';
-import {registerCheck} from '@/network/register';
+import crypto from "crypto";
+import { registerCheck } from "@/network/register";
 import { Toast } from "cube-ui";
 export default {
   name: "Register",
@@ -43,14 +64,14 @@ export default {
       currentNameIndex: -1,
       currentMailIndex: -1,
       currentPwsIndex: -1,
-      errorNameMessage: '',
-      errorMailMessage: '',
+      errorNameMessage: "",
+      errorMailMessage: "",
       isShow: false
     };
   },
   methods: {
     removeClass(ele, attr) {
-      ele.className = ele.className.replace(attr, '');
+      ele.className = ele.className.replace(attr, "");
     },
     addClass(ele, attr) {
       ele.className += ` ${attr}`;
@@ -60,20 +81,20 @@ export default {
     },
     focus(e) {
       const name = e.target.placeholder;
-      if (name === '昵称') {
+      if (name === "昵称") {
         this.currentNameIndex = -1;
-      } else if (name === '邮箱') {
+      } else if (name === "邮箱") {
         this.currentMailIndex = -1;
-      } else if (name === '密码') {
+      } else if (name === "密码") {
         this.currentPwsIndex = -1;
-      };
+      }
       this.isShow = false;
     },
     async blur(e) {
       const name = e.target.placeholder;
-      if (name === '昵称') {
+      if (name === "昵称") {
         if (/^[\w\u4E00-\u9FA5]{2,10}$/.test(e.target.value)) {
-          let result = await registerCheck({username:this.username});
+          let result = await registerCheck({ username: this.username });
           if (result.code === 1) {
             this.errorNameMessage = result.message;
             this.currentNameIndex = 0;
@@ -82,12 +103,16 @@ export default {
             this.currentNameIndex = -1;
           }
         } else {
-          this.errorNameMessage = '格式应为2~10位 支持数字字母下划线和汉字';
+          this.errorNameMessage = "格式应为2~10位 支持数字字母下划线和汉字";
           this.currentNameIndex = 0;
         }
-      } else if (name === '邮箱') {
-        if (/^(\w|-){3,}@(\w|-){2,}(.(\w|-))?(.com|.org|.net|.edu|.cn|.us|.uk)$/.test(e.target.value)){
-          let result = await registerCheck({usermail:this.usermail});
+      } else if (name === "邮箱") {
+        if (
+          /^(\w|-){3,}@(\w|-){2,}(.(\w|-))?(.com|.org|.net|.edu|.cn|.us|.uk)$/.test(
+            e.target.value
+          )
+        ) {
+          let result = await registerCheck({ usermail: this.usermail });
           if (result.code === 1) {
             this.errorMailMessage = result.message;
             this.currentMailIndex = 0;
@@ -96,42 +121,72 @@ export default {
             this.currentMailIndex = -1;
           }
         } else {
-          this.errorMailMessage = '格式不正确 应为xxx@xx.xxx类似格式';
+          this.errorMailMessage = "格式不正确 应为xxx@xx.xxx类似格式";
           this.currentMailIndex = 0;
         }
-      } else if (name === '密码') {
-        if (/^[\w.]{8,20}$/.test(e.target.value)){
+      } else if (name === "密码") {
+        if (/^[\w.]{8,20}$/.test(e.target.value)) {
           this.currentPwsIndex = -1;
         } else {
           this.currentPwsIndex = 0;
         }
       }
-      
     },
     async register() {
-      if (this.username && this.usermail && this.userpws && this.currentNameIndex !== 0 && this.currentMailIndex !== 0 && this.currentPwsIndex !== 0 && this.isShow === false) {
-        let result = await registerCheck({username:this.username, usermail:this.usermail});
-          if (result.code === 1) {
+      console.log(this.username,
+        this.usermail ,
+        this.userpws ,
+        this.currentNameIndex !== 0 ,
+        this.currentMailIndex !== 0 ,
+        this.currentPwsIndex !== 0 ,
+        this.isShow === false);
+      
+      if (
+        this.username &&
+        this.usermail &&
+        this.userpws &&
+        this.currentNameIndex !== 0 &&
+        this.currentMailIndex !== 0 &&
+        this.currentPwsIndex !== 0 &&
+        this.isShow === false
+      ) {
+        console.log('jinlaile');
+        
+        let result = await registerCheck({
+          username: this.username,
+          usermail: this.usermail
+        });
+        if (result.code === 1) {
+          if (result.message.indexOf("邮箱") > -1) {
+            this.errorMailMessage = result.message;
+            this.currentMailIndex = 0;
+          } else {
             this.errorNameMessage = result.message;
             this.currentNameIndex = 0;
-            return;
-          };
-        this.$store.dispatch("register/register", 
-        {
-          username: this.username,
-          usermail: this.usermail,
-          userpws: crypto.createHmac('sha1',"wangbowen").update(this.userpws).digest("hex")
-        }).then(res => {
-          this.toast = Toast.$create({
-            txt:"注册成功！",
-            type:"txt",
-            time: 1000
+          }
+          return;
+        };
+        this.$store
+          .dispatch("register/register", {
+            username: this.username,
+            usermail: this.usermail,
+            userpws: crypto
+              .createHmac("sha1", "wangbowen")
+              .update(this.userpws)
+              .digest("hex")
+          })
+          .then(res => {
+            this.toast = Toast.$create({
+              txt: "注册成功！",
+              type: "txt",
+              time: 1000
+            });
+            this.toast.show();
+            this.$router.replace("/");
+          })
+          .catch(rea => {
+            throw new Error("50line:", rea);
           });
-          this.toast.show();
-          this.$router.replace("/");
-        }).catch(rea => {
-          throw new Error("50line:", rea);
-        });
       } else {
         this.isShow = true;
       }
@@ -201,8 +256,9 @@ export default {
         color: red;
         margin-left: 8px;
       }
+
       .total-info {
-        margin-top 30px
+        margin-top: 30px;
       }
     }
 

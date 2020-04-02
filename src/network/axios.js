@@ -4,7 +4,7 @@ import { Toast } from 'cube-ui';
 class AjaxRequest {
   constructor() {
     // this.baseURL = 'http://123.207.32.32:8000/api/h3';
-    this.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8008' : '/';
+    this.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8008' : 'http://101.132.131.177:8008';
     // this.baseURL = 'http://101.132.131.177:8008';
     this.timeout = 5000;
     // axios.defaults.withCredentials = true;//=>允许跨域携带cookie请求

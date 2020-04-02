@@ -36,7 +36,9 @@ export default {
       this.$router.push("/404");
     },
     async addToCart() {
-      let result = await validate(JSON.parse(localStorage.getItem('userData'))[0]);
+      let userData = JSON.parse(localStorage.getItem('userData'));
+      userData ? userData = userData[0] : null;
+      let result = await validate(userData);
       if (result.code === 1) {
         this.$router.push("/login");
       } else {
@@ -50,7 +52,9 @@ export default {
       }
     },
     async payment() {
-      let result = await validate(JSON.parse(localStorage.getItem('userData'))[0]);
+      let userData = JSON.parse(localStorage.getItem('userData'));
+      userData ? userData = userData[0] : null;
+      let result = await validate(userData);
       if (result.code === 1) {
         this.$router.push("/login");
       } else {

@@ -8,7 +8,7 @@ export default {
   actions: {// 发网络请求的
     async register({commit}, payload) {
       const result = await register(payload);
-      console.log(result);
+      // console.log(result);
       
       if (result.token) {
         localStorage.setItem('token', result.token);

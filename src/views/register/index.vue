@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import crypto from 'crypto';
 import {registerCheck} from '@/network/register';
 import { Toast } from "cube-ui";
 export default {
@@ -119,7 +120,7 @@ export default {
         {
           username: this.username,
           usermail: this.usermail,
-          userpws: this.userpws
+          userpws: crypto.createHmac('sha1',"wangbowen").update(this.userpws).digest("hex")
         }).then(res => {
           this.toast = Toast.$create({
             txt:"注册成功！",

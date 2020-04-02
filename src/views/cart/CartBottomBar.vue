@@ -33,6 +33,7 @@
 </template>
 
 <script>
+
 export default {
   name: "DetailBottomBar",
   data() {
@@ -47,7 +48,7 @@ export default {
       if (!/\d+/.test(this.$store.getters.number)) {
         alert("亲~！请选择商品！");
       } else {
-        console.log("判断是否登录，是则跳转支付页面，否则跳转登录页面");
+        console.log("唤起支付宝或微信 支付页面");
       }
     },
     selectAllClick() {
@@ -62,13 +63,9 @@ export default {
         alert("亲~！请选择商品！");
       }
     },
-    // verifyCancel() {
-    //   this.isShow = false;
-    // },
-    // verifySure() {
-    //   this.$store.commit("deleteGoods");
-    //   this.isShow = false;
-    // }
+    getNumber() {
+      return this.number;
+    }
   },
   created() {
     this.selectAllClick();

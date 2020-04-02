@@ -10,7 +10,7 @@ Vue.prototype.$bus = new Vue();
 
 const whiteList = ['/','/category']
 router.beforeEach(async (to, from, next) => {
-  console.log('-------------');
+  // console.log('-------------');
   
   if (whiteList.includes(to.path)) {
     return next();
@@ -28,12 +28,12 @@ router.beforeEach(async (to, from, next) => {
   if (Array.isArray(JSON.parse(localStorage.getItem('cartData')))) {
     store.state.cartList = JSON.parse(localStorage.getItem('cartData'));
   };
-  console.log(store.state.cartList);
+  // console.log(store.state.cartList);
   
   
 
   
-  console.log('main.js:36',obj);
+  // console.log('main.js:36',obj);
   
   const isLogin = await store.dispatch('validate', obj);
   // debugger

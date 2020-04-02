@@ -36,11 +36,11 @@ export default {
   },
   methods: {
     login() {
-      console.log("去往登录页");
+      // console.log("去往登录页");
       this.$router.push("/login");
     },
     detail() {
-      console.log("去往详情页");
+      // console.log("去往详情页");
       this.$router.push("/category");
     },
     inputBlur() {

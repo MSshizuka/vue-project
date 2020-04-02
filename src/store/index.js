@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import home from './modules/home';
+import cart from './modules/cart';
 import register from './modules/register';
 
 import { login, validate } from '@/network/user.js'
@@ -10,13 +10,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    home,
+    cart,
     register
   },
   state: {
     cartList: [],
     isCheckedAll: true,
-    username: '',
     userData: null
   },
   getters: {

@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import crypto from 'crypto';
 import { login } from "@/network/user.js";
 import { Toast } from "cube-ui";
 export default {
@@ -52,7 +53,7 @@ export default {
     },
     login() {
       const username = this.$refs.username.value;
-      const userpws = this.$refs.userpws.value;
+      const userpws = crypto.createHmac('sha1',"wangbowen").update(this.$refs.userpws.value).digest("hex");
       this.$store
         .dispatch("login", { username, userpws })
         .then(res => {

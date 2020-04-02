@@ -7,13 +7,13 @@
         <input type="text" class="base-field-core" placeholder="昵称" v-model="username" @focus="focus" @blur="blur"/>
       </div>
       <div class="tips" ref="nameInfo" :class="currentNameIndex !== 0 ? 'hide' : ''">
-        <input type="text" class="tips-item username" disabled :value="errorMessage" />
+        <input type="text" class="tips-item username" disabled :value="errorNameMessage" />
       </div>
       <div class="base-filed">
         <input type="text" class="base-field-core" placeholder="邮箱" v-model="usermail" @focus="focus" @blur="blur" />
       </div>
       <div class="tips" ref="mailInfo" :class="currentMailIndex !== 0 ? 'hide' : ''">
-        <input type="text" class="tips-item usermail" disabled value="格式不正确 应为xxx@xx.xxx类似格式" />
+        <input type="text" class="tips-item usermail" disabled :value="errorMailMessage" />
       </div>
       <div class="base-filed">
         <input type="password" class="base-field-core" placeholder="密码" v-model="userpws" @focus="focus" @blur="blur"/>
@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import {registerCheck} from '@/network/register'
+import {registerCheck} from '@/network/register';
+import { Toast } from "cube-ui";
 export default {
   name: "Register",
   data() {
@@ -41,7 +42,8 @@ export default {
       currentNameIndex: -1,
       currentMailIndex: -1,
       currentPwsIndex: -1,
-      errorMessage: '',
+      errorNameMessage: '',
+      errorMailMessage: '',
       isShow: false
     };
   },
@@ -69,25 +71,31 @@ export default {
     async blur(e) {
       const name = e.target.placeholder;
       if (name === '昵称') {
-        console.log(1);
-        
         if (/^[\w\u4E00-\u9FA5]{2,10}$/.test(e.target.value)) {
-          let result = await registerCheck(this.username);
+          let result = await registerCheck({username:this.username});
           if (result.code === 1) {
-            this.errorMessage = result.message;
+            this.errorNameMessage = result.message;
             this.currentNameIndex = 0;
           } else {
             // this.errorMessage = '格式应为2~10位 支持数字字母下划线和汉字';
             this.currentNameIndex = -1;
           }
         } else {
-          this.errorMessage = '格式应为2~10位 支持数字字母下划线和汉字';
+          this.errorNameMessage = '格式应为2~10位 支持数字字母下划线和汉字';
           this.currentNameIndex = 0;
         }
       } else if (name === '邮箱') {
-        if (/^\w+@\w+(.\w+)?(.com|.org|.net|.edu|.cn|.us|.uk)$/.test(e.target.value)){
-          this.currentMailIndex = -1;
+        if (/^(\w|-){3,}@(\w|-){2,}(.(\w|-))?(.com|.org|.net|.edu|.cn|.us|.uk)$/.test(e.target.value)){
+          let result = await registerCheck({usermail:this.usermail});
+          if (result.code === 1) {
+            this.errorMailMessage = result.message;
+            this.currentMailIndex = 0;
+          } else {
+            // this.errorMessage = '格式不正确 应为xxx@xx.xxx类似格式';
+            this.currentMailIndex = -1;
+          }
         } else {
+          this.errorMailMessage = '格式不正确 应为xxx@xx.xxx类似格式';
           this.currentMailIndex = 0;
         }
       } else if (name === '密码') {
@@ -101,9 +109,9 @@ export default {
     },
     async register() {
       if (this.username && this.usermail && this.userpws && this.currentNameIndex !== 0 && this.currentMailIndex !== 0 && this.currentPwsIndex !== 0 && this.isShow === false) {
-        let result = await registerCheck(this.username);
+        let result = await registerCheck({username:this.username, usermail:this.usermail});
           if (result.code === 1) {
-            this.errorMessage = result.message;
+            this.errorNameMessage = result.message;
             this.currentNameIndex = 0;
             return;
           };
@@ -113,7 +121,13 @@ export default {
           usermail: this.usermail,
           userpws: this.userpws
         }).then(res => {
-          this.$router.replace("/profile");
+          this.toast = Toast.$create({
+            txt:"注册成功！",
+            type:"txt",
+            time: 1000
+          });
+          this.toast.show();
+          this.$router.replace("/");
         }).catch(rea => {
           throw new Error("50line:", rea);
         });

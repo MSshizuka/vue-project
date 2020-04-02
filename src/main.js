@@ -20,15 +20,23 @@ router.beforeEach(async (to, from, next) => {
   let obj = {};
   if (!store.state.userData) {
     store.state.userData = JSON.parse(localStorage.getItem('userData'));
-    store.state.userData ? obj =  store.state.userData[0] : null;
+    store.state.userData ? obj = store.state.userData[0]: null;
   } else {
     obj = store.state.userData[0]
   };
+
+  if (Array.isArray(JSON.parse(localStorage.getItem('cartData')))) {
+    store.state.cartList = JSON.parse(localStorage.getItem('cartData'));
+  };
+  console.log(store.state.cartList);
   
-  // console.log(store.state.userData[0]);
+  
+
+  
+  console.log('main.js:36',obj);
   
   const isLogin = await store.dispatch('validate', obj);
-  debugger
+  // debugger
   if (isLogin) {
     if (to.name === 'login') {
       next('/profile');

@@ -47,7 +47,8 @@ export default new Vuex.Store({
       } else {
         state.cartList = [];
         state.cartList.push(...ary);
-      }
+      };
+      localStorage.setItem('cartData',JSON.stringify(state.cartList));
     },
     modifyGoodCount(state, payload) {
       if (payload.way === '+') {
@@ -59,7 +60,8 @@ export default new Vuex.Store({
         } else {
           item.count -= 1;
         }
-      }
+      };
+      localStorage.setItem('cartData',JSON.stringify(state.cartList));
     },
     makeSureSelected(state, payload) {
       state.cartList.find(item => item.iid === payload.obj.iid).isSure = !payload.obj.isSure;
@@ -70,41 +72,43 @@ export default new Vuex.Store({
       // } else {
       //   state.isCheckedAll = false;
       // }
+      localStorage.setItem('cartData',JSON.stringify(state.cartList));
     },
     selectAll(state) {
       state.isCheckedAll = !state.isCheckedAll;
       if (state.cartList.length === 0) return;
-      state.cartList.map(item => item.isSure = state.isCheckedAll)
+      state.cartList.map(item => item.isSure = state.isCheckedAll);
+      localStorage.setItem('isCheckedAll', state.isCheckedAll);
+      localStorage.setItem('cartData',JSON.stringify(state.cartList));
     },
     defaultCheckAll(state) {
       if (state.cartList.every(item => item.isSure === true)) {
         state.isCheckedAll = true;
       } else {
         state.isCheckedAll = false;
-      }
+      };
+      localStorage.setItem('isCheckedAll', state.isCheckedAll);
     },
     addToCart(state, payload) {
-      if (state.cartList.length === 0) {
+      if (state.cartList.length === 0) {       
         state.cartList.push(payload);
       } else {
-        //   state.cartList.forEach(item => {
-        //     if (item.iid === payload.iid) {
-        //       item.count += payload.count;
-        //     } else {
-        //       state.cartList.push(payload);
-        //     }
-        //   })
-        // }
         let isHad = state.cartList.find(item => item.iid === payload.iid);
         if (isHad) {
           isHad.count += payload.count;
         } else {
           state.cartList.push(payload);
         }
-      }
+      };
+      this._mutations.defaultCheckAll[0](state);
+      localStorage.setItem('cartData',JSON.stringify(state.cartList));
     },
     setUser(state, payload) {     
       state.userData = payload
+    },
+    init(state) {
+      // console.log(Object.keys(state));
+      state.cartList = [];
     }
   },
   actions: {

@@ -22,92 +22,104 @@
 </template>
 
 <script>
-	export default {
-    name: "DetailBottomBar",
-    props: {
-      topImages: {
-        type: Array
-      }
+import { validate } from "@/network/user.js";
+
+export default {
+  name: "DetailBottomBar",
+  props: {
+    topImages: {
+      type: Array
+    }
+  },
+  methods: {
+    toShop() {
+      this.$router.push("/404");
     },
-    methods: {
-      toShop() {
-        this.$router.push('/404')
-      }, 
-      addToCart() {
+    async addToCart() {
+      let result = await validate(JSON.parse(localStorage.getItem('userData'))[0]);
+      if (result.code === 1) {
+        this.$router.push("/login");
+      } else {
         // console.log('加入购物车');
         if (this.topImages.length === 0) {
-          alert('抱歉，商品走丢了!');
+          alert("抱歉，商品走丢了!");
           this.$router.back();
           return;
-        };
-        this.$emit('addCart', 0)
-      },
-      payment() {
+        }
+        this.$emit("addCart", 0);
+      }
+    },
+    async payment() {
+      let result = await validate(JSON.parse(localStorage.getItem('userData'))[0]);
+      if (result.code === 1) {
+        this.$router.push("/login");
+      } else {
         // console.log('去付款，跳转到购物车页面');
         // console.log(this.topImages.length);
         if (this.topImages.length === 0) {
-          alert('抱歉，商品走丢了!');
+          alert("抱歉，商品走丢了!");
           this.$router.back();
           return;
-        };
-        this.$emit('payment', 1)
+        }
+        this.$emit("payment", 1);
       }
     }
-	}
+  }
+};
 </script>
 
 <style scoped>
-  .bottom-bar {
-    height: 58px;
-    position: fixed;
-    background-color: #fff;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.bottom-bar {
+  height: 58px;
+  position: fixed;
+  background-color: #fff;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-    display: flex;
-    text-align: center;
-  }
+  display: flex;
+  text-align: center;
+}
 
-  .bar-item {
-    flex: 1;
-    display: flex;
-  }
+.bar-item {
+  flex: 1;
+  display: flex;
+}
 
-  .bar-left {
-    background-color: #eee;
-  }
+.bar-left {
+  background-color: #eee;
+}
 
-  .bar-item>div {
-    flex: 1;
-  }
+.bar-item > div {
+  flex: 1;
+}
 
-  .bar-left .text {
-    font-size: 14px;
-  }
+.bar-left .text {
+  font-size: 14px;
+}
 
-  .bar-left .iconfont {
-    display: block;
-    width: 22px;
-    height: 22px;
-    margin: 10px auto 3px;
-    font-size: 22px;
-  }
+.bar-left .iconfont {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: 10px auto 3px;
+  font-size: 22px;
+}
 
-  .bar-right {
-    font-size: 15px;
-    color: #fff;
-    line-height: 58px;
-  }
+.bar-right {
+  font-size: 15px;
+  color: #fff;
+  line-height: 58px;
+}
 
-  .bar-right .cart {
-    background-color: #ffe817;
-    color: #aaa;
-    font-size: 18px;
-  }
+.bar-right .cart {
+  background-color: #ffe817;
+  color: #aaa;
+  font-size: 18px;
+}
 
-  .bar-right .buy {
-    background-color: #f69;
-    font-size: 20px;
-  }
+.bar-right .buy {
+  background-color: #f69;
+  font-size: 20px;
+}
 </style>

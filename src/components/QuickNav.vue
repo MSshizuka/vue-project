@@ -126,35 +126,30 @@ export default {
 .nav-item {
   z-index: 499;
   background-color: rgba(0, 0, 0, 0.6);
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 .nav-home {
-  // bottom: 265px;
   bottom: 2rem;
-  // transition: all 0.5s;
 }
 
 .nav-category {
   bottom: 2rem;
-  // transition: all 0.4s;
 }
 
 .nav-cart {
   bottom: 2rem;
-  // transition: all 0.3s;
 }
 
 .nav-profile {
   bottom: 2rem;
-  // transition: all 0.2s;
 }
 
 .nav-set {
   bottom: 2rem;
   z-index: 500;
-  transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 499;
 }
 </style>

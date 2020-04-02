@@ -11,7 +11,7 @@ export const login = ({ username}) => {
 }
 
 export const validate = (userdata) => {
-  console.log('user.js14:',userdata);
+  console.log(userdata);
   
   return AjaxRequest.request({
     url: '/validate',

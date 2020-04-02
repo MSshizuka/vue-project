@@ -34,6 +34,9 @@
 
 <script>
 import { Toast } from "cube-ui";
+
+import { storage } from "@/utils/init";
+
 import NavBar from "@/components/NavBar";
 export default {
   name: "ProfilePersonalInfo",
@@ -42,16 +45,15 @@ export default {
       this.$emit('hidePersonalInformation')
     },
     logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userData');
-      this.$emit('hidePersonalInformation')
       this.toast = Toast.$create({
         txt: "退出成功！",
         type: "txt",
         time: 1000
       });
       this.toast.show();
-      this.$router.replace('/')
+      storage();
+      this.$store.commit('init');
+      this.$router.replace('/');
     }
   },
   components: {

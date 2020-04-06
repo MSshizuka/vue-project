@@ -4,6 +4,10 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'amfe-flexible';// px2rem
+import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
+import 'vue-directive-image-previewer/dist/assets/style.css'
+
+Vue.use(VueDirectiveImagePreviewer)
 
 Vue.prototype.$bus = new Vue();
  

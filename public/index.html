@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1676833_9x3xppz2h0h.css">
-    <title>vue-project</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but vue-project doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1676833_9x3xppz2h0h.css">
+  <title>购物街</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but vue-project doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <% if (NODE_ENV === 'production') { %>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-router/3.0.3/vue-router.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+  <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-lazyload/1.3.3/vue-lazyload.js"></script>
+  <% } %>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

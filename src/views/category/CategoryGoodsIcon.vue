@@ -1,10 +1,10 @@
 <template>
   <div class="icon-show-box">
-    <div class="item" v-for="(item, index) in subcategories.list" :key="index">
-      <a :href="item.link">
+    <div class="item" v-for="(item, index) in subcategories.list" :key="index" @click="itemClick">
+      <!-- <a :href="item.link"> -->
       <img class="item-img" v-lazy="item.image" alt />
       <div class="item-text">{{item.title}}</div>
-      </a>
+      <!-- </a> -->
     </div>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
       default() {
         return [];
       }
+    }
+  },
+  methods: {
+    itemClick() {
+      this.$router.push('/404')
     }
   }
 };

@@ -1,19 +1,21 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/home';
+import hooks from '@/router/hook.js'//获取路由全部钩子
 
 import loadable from '@/utils/loading';
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home,
+      // component: Home,
+      component: loadable(() => import('@/views/home/index.vue')),
     },
     {
       path: '/category',
@@ -51,6 +53,12 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import('@/views/register/index.vue')
-    },
+    }
   ],
 });
+Object.values(hooks).forEach(hook => {
+  router.beforeEach(hook)
+})
+
+
+export default router;

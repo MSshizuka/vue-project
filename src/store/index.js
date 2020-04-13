@@ -16,7 +16,9 @@ export default new Vuex.Store({
   state: {
     cartList: [],
     isCheckedAll: true,
-    userData: null
+    userData: null,
+    ajaxToken: [],//准备一个容器 存放所有请求
+    toasts:[]
   },
   getters: {
     number(state) {
@@ -39,6 +41,15 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    //存放请求
+    pushToken(state, cancel) {
+      state.ajaxToken = [...state.ajaxToken, cancel];
+      state.toasts = [...state.toasts, cancel];
+    },
+    //清除请求
+    clearToken(state){
+      state.ajaxToken.forEach(cancel => cancel());
+    },
     deleteGoods(state) {
       let ary = state.cartList.filter(item => item.isSure === false);
       if (ary.length === 0) {

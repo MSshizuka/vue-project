@@ -240,7 +240,7 @@ export default {
     getRecommend().then((res, error) => {
       if (error) return;
       this.recommendList = res.data.list;
-    });
+    }).catch(rea => console.log('ng',rea))
 
     this.getTitlesTopY = debounce(() => {
       this.$refs.scroll.refresh();

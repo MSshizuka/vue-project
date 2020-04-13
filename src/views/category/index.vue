@@ -93,7 +93,7 @@ export default {
         }
         // 3.请求第一个分类的数据
         this._getSubcategories(index);
-      });
+      },rea=>console.log(rea));
     },
     _getSubcategories(index) {
       this.currentIndex = index;
@@ -104,7 +104,7 @@ export default {
         this._getCategoryDetail("pop");
         this._getCategoryDetail("sell");
         this._getCategoryDetail("new");
-      });
+      }, rea=>console.log(rea));
     },
     _getCategoryDetail(type) {
       // 1.获取请求的miniWallkey
@@ -114,7 +114,7 @@ export default {
         // 3.将获取的数据保存下来
         this.categoryData[this.currentIndex].categoryDetail[type] = res;
         this.categoryData = { ...this.categoryData };
-      });
+      }, rea=>console.log(rea));
     },
     /**
      * 事件响应相关的方法
@@ -149,12 +149,22 @@ export default {
   activated() {
     if (this.$refs.scroll) {
       this.$refs.scroll.refresh();
-      this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+      if(this.scrollY) {
+        this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+      }
       this.$refs.scroll.refresh();
+    };
+
+    if (this.categories.length === 0) {
+      this._getCategory(0);
+    } else {
+      if (Object.values(this.categoryData)[0].categoryDetail.new.length === 0) {
+        this._getCategory(0);
+      }
     }
   },
   deactivated() {
-    this.scrollY = this.$refs.scroll.scroll.y;
+    if (this.$refs.scroll) this.scrollY = this.$refs.scroll.scroll.y;
   }
 };
 </script>

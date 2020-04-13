@@ -48,7 +48,8 @@ export default {
       if (!/\d+/.test(this.$store.getters.number)) {
         alert("亲~！请选择商品！");
       } else {
-        console.log("唤起支付宝或微信 支付页面");
+        // console.log("唤起支付宝或微信 支付页面");
+        this.$router.push('/404')
       }
     },
     selectAllClick() {

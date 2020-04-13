@@ -132,15 +132,7 @@ export default {
         }
       }
     },
-    async register() {
-      console.log(this.username,
-        this.usermail ,
-        this.userpws ,
-        this.currentNameIndex !== 0 ,
-        this.currentMailIndex !== 0 ,
-        this.currentPwsIndex !== 0 ,
-        this.isShow === false);
-      
+    async register() {      
       if (
         this.username &&
         this.usermail &&
@@ -150,8 +142,6 @@ export default {
         this.currentPwsIndex !== 0 &&
         this.isShow === false
       ) {
-        console.log('jinlaile');
-        
         let result = await registerCheck({
           username: this.username,
           usermail: this.usermail
@@ -185,7 +175,7 @@ export default {
             this.$router.replace("/");
           })
           .catch(rea => {
-            throw new Error("50line:", rea);
+            throw new Error("register fail:", rea);
           });
       } else {
         this.isShow = true;

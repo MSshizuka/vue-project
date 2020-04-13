@@ -91,20 +91,26 @@ export default {
     //=>network
     getHomeDataList(type) {
       const page = this.goods[type].page + 1;
-      getHomeData(type, page).then(res => {
-        // console.log(res);
-        this.goods[type].list.push(...res.data.list);
-        this.goods[type].page += 1;
-      });
+      getHomeData(type, page).then(
+        res => {
+          // console.log(res);
+          this.goods[type].list.push(...res.data.list);
+          this.goods[type].page += 1;
+        },
+        rea => console.log("homedata ng", rea)
+      );
       this.$refs.scroll.finishPullUp();
     }
   },
   mounted() {
-    getHomeMultidata().then(res => {
-      // console.log(res.data);
-      this.banner = res.data.banner.list;
-      this.recommend = res.data.recommend.list;
-    });
+    getHomeMultidata().then(
+      res => {
+        // console.log(res.data);
+        this.banner = res.data.banner.list;
+        this.recommend = res.data.recommend.list;
+      },
+      rea => console.log("homeMultidata ng", rea)
+    );
 
     this.getHomeDataList("pop");
     this.getHomeDataList("new");
@@ -120,13 +126,32 @@ export default {
     this.$bus.$on("imageLoad", this.imageLoad);
   },
   activated() {
-    // console.log(this.scrollY);
     this.$refs.scroll.refresh();
-    this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+    if (this.scrollY) {
+      this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+    }
     this.$refs.scroll.refresh();
+
+    if (this.banner.length === 0 || this.recommend.length === 0) {
+      getHomeMultidata().then(
+        res => {
+          // console.log(res.data);
+          this.banner = res.data.banner.list;
+          this.recommend = res.data.recommend.list;
+        },
+        rea => console.log("homeMultidata ng", rea)
+      );
+    }
+    if (this.goods.pop.list.length === 0) {
+      this.getHomeDataList("pop");
+      this.getHomeDataList("new");
+      this.getHomeDataList("sell");
+    }
   },
   deactivated() {
-    this.scrollY = this.$refs.scroll.scroll.y;
+    if (this.$refs.scroll) {
+      this.scrollY = this.$refs.scroll.scroll.y;
+    }
 
     this.$bus.$off("imageLoad", this.imageLoad);
   },

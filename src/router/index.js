@@ -15,7 +15,7 @@ let router = new Router({
       path: '/',
       name: 'home',
       // component: Home,
-      component: loadable(() => import('@/views/home/index.vue')),
+      component: Home,
     },
     {
       path: '/category',
